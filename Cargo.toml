@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "glpk-sys",
+    "glpk",
+    "fez-route",
+]
