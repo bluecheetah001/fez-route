@@ -28,13 +28,14 @@ struct Position {
 pub enum Cost {
     Lock,
     Water,
+    Secret,
 }
 
 #[derive(Deserialize, Debug, Copy, Clone)]
 #[serde(rename_all = "lowercase")]
 pub enum Time {
     Chest,
-    Puzzle,
+    Code,
     Far,
 }
 
@@ -43,13 +44,13 @@ struct Collectable<'a> {
     name: &'a str,
     position: Position,
     #[serde(default)]
-    bit: f64,
+    bit: i32,
     #[serde(default)]
-    cube: f64,
+    cube: i32,
     #[serde(default)]
-    anti: f64,
+    anti: i32,
     #[serde(default)]
-    key: f64,
+    key: i32,
     time: Option<Time>,
     cost: Option<Cost>,
     #[serde(skip, default = "NodeIndex::end")]
@@ -75,33 +76,32 @@ struct Room<'a> {
 }
 
 #[derive(Debug)]
-pub struct Node<T> {
-    // these names are highly repetative
-    // but interning to avoid allocations and get faster eq is annoying
-    pub room_name: String,
+pub struct Node {
+    /// {room}.{name}.{to} for doors
+    /// .{name}.{to} for dest
+    /// {room}.{name} for collectables
     pub name: String,
-    pub to_name: Option<String>,
-    pub bit: f64,
-    pub cube: f64,
-    pub anti: f64,
-    pub key: f64,
+    pub bit: i32,
+    pub cube: i32,
+    pub anti: i32,
+    pub key: i32,
     pub cost: Option<Cost>,
-    pub time: T,
+    pub time: Option<Time>,
 }
 
 #[derive(Debug)]
-pub struct Edge<T> {
-    time: T,
+pub struct Edge {
+    pub time: Distance,
 }
 
 #[derive(Debug, Copy, Clone)]
 pub struct Distance {
-    dx: f64,
-    dy: f64,
-    dz: f64,
+    pub dx: f64,
+    pub dy: f64,
+    pub dz: f64,
 }
 
-pub fn load(path: impl AsRef<Path>) -> Graph<Node<Option<Time>>, Edge<Distance>> {
+pub fn load(path: impl AsRef<Path>) -> Graph<Node, Edge> {
     let mut s = String::new();
     File::open(path).unwrap().read_to_string(&mut s).unwrap();
     let mut rooms: Vec<Room> = serde_json::from_str(&s).unwrap();
@@ -164,7 +164,7 @@ fn verify_unique_inner_names(room: &Room) {
         });
 }
 
-fn as_graph(rooms: &mut [Room]) -> Graph<Node<Option<Time>>, Edge<Distance>> {
+fn as_graph(rooms: &mut [Room]) -> Graph<Node, Edge> {
     let mut graph = Graph::new();
     rooms
         .iter_mut()
@@ -175,12 +175,10 @@ fn as_graph(rooms: &mut [Room]) -> Graph<Node<Option<Time>>, Edge<Distance>> {
     graph
 }
 
-fn add_room_nodes(graph: &mut Graph<Node<Option<Time>>, Edge<Distance>>, room: &mut Room) {
+fn add_room_nodes(graph: &mut Graph<Node, Edge>, room: &mut Room) {
     for collectable in &mut room.collectables {
         collectable.index = graph.add_node(Node {
-            room_name: room.name.to_owned(),
-            name: collectable.name.to_owned(),
-            to_name: None,
+            name: format!("{}.{}", room.name, collectable.name),
             bit: collectable.bit,
             cube: collectable.cube,
             anti: collectable.anti,
@@ -192,13 +190,11 @@ fn add_room_nodes(graph: &mut Graph<Node<Option<Time>>, Edge<Distance>>, room: &
     for door in &mut room.doors {
         if let Some(to) = door.to {
             door.index = graph.add_node(Node {
-                room_name: room.name.to_owned(),
-                name: door.name.to_owned(),
-                to_name: Some(to.to_owned()),
-                bit: 0.0,
-                cube: 0.0,
-                anti: 0.0,
-                key: 0.0,
+                name: format!("{}.{}.{}", room.name, door.name, to),
+                bit: 0,
+                cube: 0,
+                anti: 0,
+                key: 0,
                 cost: door.cost,
                 time: door.time,
             });
@@ -206,19 +202,9 @@ fn add_room_nodes(graph: &mut Graph<Node<Option<Time>>, Edge<Distance>>, room: &
     }
 }
 
-fn add_room_edges(
-    graph: &mut Graph<Node<Option<Time>>, Edge<Distance>>,
-    rooms: &[Room],
-    room: &Room,
-) {
+fn add_room_edges(graph: &mut Graph<Node, Edge>, rooms: &[Room], room: &Room) {
     for collectable in &room.collectables {
-        add_edges(
-            graph,
-            collectable.index,
-            collectable.position,
-            room,
-            collectable.index,
-        );
+        add_edges(graph, collectable.index, collectable.position, room);
     }
     for door in &room.doors {
         if let Some(to) = door.to {
@@ -230,7 +216,7 @@ fn add_room_edges(
                     .filter(|&rev| rev.to.map_or(true, |rev_to| rev_to == room.name))
                     .min_by_key(|&rev| rev.to.is_some())
                 {
-                    add_edges(graph, door.index, rev.position, to, rev.index);
+                    add_edges(graph, door.index, rev.position, to);
                 } else {
                     warn!("no dest door for {}.{}.{}", room.name, door.name, to.name)
                 }
@@ -241,18 +227,17 @@ fn add_room_edges(
     }
 }
 
-fn add_edges(
-    graph: &mut Graph<Node<Option<Time>>, Edge<Distance>>,
-    src_i: NodeIndex,
-    src_pos: Position,
-    room: &Room,
-    except: NodeIndex,
-) {
+fn add_edges(graph: &mut Graph<Node, Edge>, src_i: NodeIndex, src_pos: Position, room: &Room) {
     room.collectables
         .iter()
         .map(|c| (c.index, c.position))
-        .chain(room.doors.iter().map(|d| (d.index, d.position)))
-        .filter(|&(dest_i, _)| dest_i != NodeIndex::end() && dest_i != except)
+        .chain(
+            room.doors
+                .iter()
+                .filter(|&d| d.to.is_some())
+                .map(|d| (d.index, d.position)),
+        )
+        .filter(|&(i, _)| i != src_i)
         .for_each(|(dest_i, dest_pos)| {
             graph.add_edge(
                 src_i,

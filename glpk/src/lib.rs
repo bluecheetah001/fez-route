@@ -332,6 +332,7 @@ impl Prob {
         // docs say this is good for binary problems
         // being lazy and setting this here instead of exposing
         options.ps_heur = GLP_ON as c_int;
+        options.sr_heur = GLP_OFF as c_int;
 
         assert_eq!(
             std::mem::size_of::<*mut c_void>(),
