@@ -1,73 +1,5 @@
 [
   {
-    "name": "abandoned_a",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 11,
-          "y": 9,
-          "z": 10
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "villageville_3d",
-        "position": {
-          "orientation": "right",
-          "x": 7.5,
-          "y": 7,
-          "z": 14.46875
-        }
-      }
-    ]
-  },
-  {
-    "name": "abandoned_b",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 7,
-          "y": 3,
-          "z": 10
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "villageville_3d",
-        "position": {
-          "orientation": "left",
-          "x": 13.5,
-          "y": 1,
-          "z": 5.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "abandoned_c",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "villageville_3d",
-        "position": {
-          "orientation": "left",
-          "x": 13.5,
-          "y": 1,
-          "z": 5.5
-        }
-      }
-    ]
-  },
-  {
     "name": "ancient_walls",
     "collectables": [
       {
@@ -96,6 +28,17 @@
           "y": 34.5,
           "z": 3
         }
+      },
+      {
+        "name": "zu_tetris",
+        "anti": 1,
+        "position": {
+          "orientation": "front",
+          "x": 24.5,
+          "y": 7,
+          "z": 23.5
+        },
+        "time": 1629
       }
     ],
     "doors": [
@@ -108,7 +51,7 @@
           "y": 7,
           "z": 23.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -119,17 +62,7 @@
           "y": 41,
           "z": 4.5
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "zu_tetris",
-        "position": {
-          "orientation": "front",
-          "x": 24.5,
-          "y": 7,
-          "z": 23.5
-        }
+        "time": 350
       }
     ]
   },
@@ -171,7 +104,7 @@
           "y": 43,
           "z": 9.5
         },
-        "time": "chest"
+        "time": 150
       },
       {
         "name": "anti",
@@ -181,7 +114,7 @@
           "y": 48.4375,
           "z": 32
         },
-        "time": "chest"
+        "time": 150
       }
     ],
     "doors": [
@@ -194,7 +127,7 @@
           "y": 26,
           "z": 15.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -205,7 +138,7 @@
           "y": 7,
           "z": 14.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -216,7 +149,7 @@
           "y": 19,
           "z": 4.5
         },
-        "time": "far"
+        "time": 350
       }
     ]
   },
@@ -245,18 +178,6 @@
     "doors": [
       {
         "name": "door",
-        "to": "water_pyramid",
-        "position": {
-          "orientation": "front",
-          "x": 17.5,
-          "y": 20,
-          "z": 20.5
-        },
-        "time": "far",
-        "cost": "water"
-      },
-      {
-        "name": "door",
         "to": "nature_hub",
         "position": {
           "orientation": "back",
@@ -264,7 +185,7 @@
           "y": 17,
           "z": 14.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -285,7 +206,7 @@
           "y": 51,
           "z": 20.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "secret",
@@ -297,41 +218,6 @@
           "z": 17.5
         },
         "cost": "secret"
-      }
-    ]
-  },
-  {
-    "name": "big_owl",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 17.5625,
-          "y": 29,
-          "z": 13.5
-        }
-      },
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 17.5,
-          "y": 13,
-          "z": 10
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "owl",
-        "position": {
-          "orientation": "front",
-          "x": 18,
-          "y": 12,
-          "z": 17
-        }
       }
     ]
   },
@@ -435,33 +321,6 @@
     ]
   },
   {
-    "name": "boileroom",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 10,
-          "y": 10,
-          "z": 12
-        },
-        "time": "code"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "villageville_3d",
-        "position": {
-          "orientation": "right",
-          "x": 7.5,
-          "y": 7,
-          "z": 14.5
-        }
-      }
-    ]
-  },
-  {
     "name": "cabin_interior",
     "collectables": [],
     "doors": [
@@ -510,7 +369,7 @@
           "y": 14,
           "z": 31.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -521,7 +380,7 @@
           "y": 24,
           "z": 33.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "warp_left",
@@ -536,7 +395,19 @@
   },
   {
     "name": "cmy",
-    "collectables": [],
+    "collectables": [
+      {
+        "name": "cmy_fork",
+        "anti": 1,
+        "position": {
+          "orientation": "left",
+          "x": 14.5,
+          "y": 45,
+          "z": 12.5
+        },
+        "time": 334
+      }
+    ],
     "doors": [
       {
         "name": "door",
@@ -556,16 +427,6 @@
           "x": 3.5,
           "y": 93,
           "z": 8.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "cmy_fork",
-        "position": {
-          "orientation": "left",
-          "x": 14.5,
-          "y": 45,
-          "z": 12.5
         }
       }
     ]
@@ -602,113 +463,6 @@
           "y": 62,
           "z": 11.5
         }
-      }
-    ]
-  },
-  {
-    "name": "cmy_fork",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 7,
-          "y": 9.5,
-          "z": 5
-        },
-        "time": "code"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "cmy",
-        "position": {
-          "orientation": "front",
-          "x": 7.5,
-          "y": 3,
-          "z": 6.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "code_machine",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 35,
-          "y": 40,
-          "z": 10
-        },
-        "time": "code"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "visitor",
-        "position": {
-          "orientation": "back",
-          "x": 22.5,
-          "y": 31,
-          "z": 14.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "crypt",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "mausoleum",
-        "position": {
-          "orientation": "front",
-          "x": 18.5,
-          "y": 20,
-          "z": 15
-        }
-      },
-      {
-        "name": "door",
-        "to": "tree_of_death",
-        "position": {
-          "orientation": "back",
-          "x": 16.5,
-          "y": 15,
-          "z": 8.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "extractor_a",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 23.5,
-          "y": 15,
-          "z": 11.5
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "pivot_two",
-        "position": {
-          "orientation": "right",
-          "x": 26.5,
-          "y": 5,
-          "z": 13.5
-        },
-        "time": "far"
       }
     ]
   },
@@ -762,17 +516,7 @@
           "y": 15,
           "z": 26.5
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "five_towers_cave",
-        "position": {
-          "orientation": "front",
-          "x": 32.5,
-          "y": 16,
-          "z": 26.5
-        }
+        "time": 350
       },
       {
         "name": "secret",
@@ -792,48 +536,6 @@
           "x": 45.5,
           "y": 74,
           "z": 19.4375
-        }
-      }
-    ]
-  },
-  {
-    "name": "five_towers_cave",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "five_towers",
-        "position": {
-          "orientation": "front",
-          "x": 10.5,
-          "y": 54,
-          "z": 16.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "fox",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 18.5,
-          "y": 74,
-          "z": 8.5
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "waterfall",
-        "position": {
-          "orientation": "front",
-          "x": 15.5,
-          "y": 60,
-          "z": 15
         }
       }
     ]
@@ -888,74 +590,6 @@
           "x": 28,
           "y": 33,
           "z": 22.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "geezer_house",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "villageville_3d",
-        "position": {
-          "orientation": "right",
-          "x": 7.5,
-          "y": 7,
-          "z": 14
-        }
-      }
-    ]
-  },
-  {
-    "name": "globe",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 23,
-          "y": 32.5,
-          "z": 18.5
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "library_interior",
-        "position": {
-          "orientation": "right",
-          "x": 28.5,
-          "y": 19.5,
-          "z": 19
-        }
-      },
-      {
-        "name": "door",
-        "to": "globe_int",
-        "position": {
-          "orientation": "left",
-          "x": 21.5,
-          "y": 32,
-          "z": 19
-        }
-      }
-    ]
-  },
-  {
-    "name": "globe_int",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "globe",
-        "position": {
-          "orientation": "left",
-          "x": 13.5,
-          "y": 8,
-          "z": 8
         }
       }
     ]
@@ -1017,7 +651,7 @@
           "y": 66.5,
           "z": 13
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -1028,7 +662,7 @@
           "y": 45.5,
           "z": 33
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -1039,7 +673,7 @@
           "y": 31.5,
           "z": 17.03125
         },
-        "time": "far"
+        "time": 350
       }
     ]
   },
@@ -1108,6 +742,17 @@
           "y": 61,
           "z": 19.5
         }
+      },
+      {
+        "name": "owl",
+        "bit": 1,
+        "position": {
+          "orientation": "right",
+          "x": 30.5,
+          "y": 18.5,
+          "z": 17
+        },
+        "time": 926
       }
     ],
     "doors": [
@@ -1130,18 +775,7 @@
           "y": 53,
           "z": 20
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "owl",
-        "position": {
-          "orientation": "right",
-          "x": 30.5,
-          "y": 18.5,
-          "z": 17
-        },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -1152,7 +786,7 @@
           "y": 37.5,
           "z": 35
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "warp_left",
@@ -1278,7 +912,7 @@
           "y": 7.5,
           "z": 15
         },
-        "time": "far"
+        "time": 350
       }
     ]
   },
@@ -1314,7 +948,7 @@
           "y": 11.5,
           "z": 17.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "warp_left",
@@ -1368,7 +1002,7 @@
           "y": 39.5,
           "z": 12
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "warp_left",
@@ -1383,7 +1017,41 @@
   },
   {
     "name": "industrial_city",
-    "collectables": [],
+    "collectables": [
+      {
+        "name": "nuzu_abandoned_a",
+        "bit": 1,
+        "position": {
+          "orientation": "front",
+          "x": 8.5,
+          "y": 54,
+          "z": 13.5
+        },
+        "time": 214
+      },
+      {
+        "name": "nuzu_school",
+        "anti": 1,
+        "position": {
+          "orientation": "back",
+          "x": 12.5,
+          "y": 50,
+          "z": 6.5
+        },
+        "time": 290
+      },
+      {
+        "name": "showers",
+        "bit": 1,
+        "position": {
+          "orientation": "right",
+          "x": 17.5,
+          "y": 46,
+          "z": 4.5
+        },
+        "time": 184
+      }
+    ],
     "doors": [
       {
         "name": "door",
@@ -1394,62 +1062,24 @@
           "y": 42,
           "z": 14
         }
-      },
-      {
-        "name": "door",
-        "to": "nuzu_school",
-        "position": {
-          "orientation": "back",
-          "x": 12.5,
-          "y": 50,
-          "z": 6.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "nuzu_boilerroom",
-        "position": {
-          "orientation": "left",
-          "x": 6.5,
-          "y": 46,
-          "z": 8.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "nuzu_abandoned_a",
-        "position": {
-          "orientation": "front",
-          "x": 8.5,
-          "y": 54,
-          "z": 13.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "showers",
-        "position": {
-          "orientation": "right",
-          "x": 17.5,
-          "y": 46,
-          "z": 4.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "nuzu_dorm",
-        "position": {
-          "orientation": "right",
-          "x": 17.5,
-          "y": 54,
-          "z": 15.5
-        }
       }
     ]
   },
   {
     "name": "industrial_hub",
-    "collectables": [],
+    "collectables": [
+      {
+        "name": "indust_abandoned_a",
+        "bit": 1,
+        "position": {
+          "orientation": "front",
+          "x": 35.5,
+          "y": 54,
+          "z": 37.375
+        },
+        "time": 238
+      }
+    ],
     "doors": [
       {
         "name": "door",
@@ -1460,7 +1090,7 @@
           "y": 57,
           "z": 13.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -1471,7 +1101,7 @@
           "y": 64,
           "z": 32.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -1482,7 +1112,7 @@
           "y": 51,
           "z": 16.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -1492,16 +1122,6 @@
           "x": 24.5,
           "y": 41,
           "z": 14.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "indust_abandoned_a",
-        "position": {
-          "orientation": "front",
-          "x": 35.5,
-          "y": 54,
-          "z": 37.375
         }
       },
       {
@@ -1611,7 +1231,7 @@
           "y": 27,
           "z": 51.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -1621,182 +1241,6 @@
           "x": 30.5,
           "y": 151,
           "z": 10.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "indust_abandoned_a",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 7,
-          "y": 11,
-          "z": 8.3125
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "industrial_hub",
-        "position": {
-          "orientation": "right",
-          "x": 7.5,
-          "y": 7,
-          "z": 14.46875
-        }
-      }
-    ]
-  },
-  {
-    "name": "kitchen",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 6.75,
-          "y": 11.5,
-          "z": 13
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "villageville_3d",
-        "position": {
-          "orientation": "right",
-          "x": 7.5,
-          "y": 7,
-          "z": 13.78125
-        }
-      }
-    ]
-  },
-  {
-    "name": "lava",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "sewer_to_lava",
-        "position": {
-          "orientation": "front",
-          "x": 18,
-          "y": 25,
-          "z": 19.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "lava_skull",
-        "position": {
-          "orientation": "left",
-          "x": 37.5,
-          "y": 190,
-          "z": 28.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "lava_fork",
-        "position": {
-          "orientation": "left",
-          "x": 14.5,
-          "y": 25,
-          "z": 14.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "lava_fork",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 16.5,
-          "y": 45.5,
-          "z": 16.5
-        },
-        "time": "code"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "lava",
-        "position": {
-          "orientation": "back",
-          "x": 19.5,
-          "y": 28,
-          "z": 16
-        }
-      }
-    ]
-  },
-  {
-    "name": "lava_skull",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 10,
-          "y": 30,
-          "z": 8
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "lava",
-        "position": {
-          "orientation": "back",
-          "x": 18.5,
-          "y": 20,
-          "z": 20.5
-        }
-      },
-      {
-        "name": "warp_left",
-        "to": "nature_hub",
-        "position": {
-          "x": 10.5,
-          "y": 30,
-          "z": 8.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "library_interior",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_library",
-        "position": {
-          "orientation": "right",
-          "x": 7.5,
-          "y": 5,
-          "z": 19.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "globe",
-        "position": {
-          "orientation": "left",
-          "x": 24.5,
-          "y": 5,
-          "z": 20
         }
       }
     ]
@@ -1812,7 +1256,7 @@
           "y": 25,
           "z": 9.5
         },
-        "time": "code"
+        "time": 148
       },
       {
         "name": "bit_1",
@@ -1831,6 +1275,18 @@
           "y": 39,
           "z": 31.5
         }
+      },
+      {
+        "name": "zu_fork",
+        "anti": 1,
+        "position": {
+          "orientation": "right",
+          "x": 24.5,
+          "y": 15,
+          "z": 28.5
+        },
+        "time": 408,
+        "cost": "water"
       }
     ],
     "doors": [
@@ -1864,7 +1320,7 @@
           "y": 21,
           "z": 45.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -1875,18 +1331,7 @@
           "y": 35,
           "z": 41.5
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "zu_fork",
-        "position": {
-          "orientation": "right",
-          "x": 24.5,
-          "y": 15,
-          "z": 28.5
-        },
-        "cost": "water"
+        "time": 350
       }
     ]
   },
@@ -2012,7 +1457,7 @@
           "y": 8.5,
           "z": 5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -2023,18 +1468,7 @@
           "y": 8,
           "z": 13.5
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "crypt",
-        "position": {
-          "orientation": "front",
-          "x": 21.5,
-          "y": 13,
-          "z": 21.5
-        },
-        "cost": "lock"
+        "time": 350
       },
       {
         "name": "door",
@@ -2045,7 +1479,7 @@
           "y": 27.5,
           "z": 21.9375
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "secret",
@@ -2164,6 +1598,15 @@
     "name": "mine_bomb_pillar",
     "collectables": [
       {
+        "name": "bit_1",
+        "bit": 1,
+        "position": {
+          "x": 22.5,
+          "y": 55,
+          "z": 30.5
+        }
+      },
+      {
         "name": "key",
         "key": 1,
         "position": {
@@ -2171,7 +1614,7 @@
           "y": 68,
           "z": 18.5
         },
-        "time": "chest"
+        "time": 150
       }
     ],
     "doors": [
@@ -2282,7 +1725,7 @@
           "y": 15,
           "z": 2.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -2293,7 +1736,7 @@
           "y": 11,
           "z": 6.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -2304,7 +1747,7 @@
           "y": 18,
           "z": 15.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -2315,7 +1758,7 @@
           "y": 14,
           "z": 27.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -2336,17 +1779,6 @@
           "y": 27,
           "z": 17.125
         }
-      },
-      {
-        "name": "door",
-        "to": "ritual",
-        "position": {
-          "orientation": "right",
-          "x": 12.5,
-          "y": 4,
-          "z": 18
-        },
-        "cost": "water"
       },
       {
         "name": "secret",
@@ -2396,32 +1828,6 @@
     ]
   },
   {
-    "name": "nuzu_abandoned_a",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 7.5,
-          "y": 5,
-          "z": 7.5
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "industrial_city",
-        "position": {
-          "orientation": "back",
-          "x": 13,
-          "y": 1,
-          "z": 11.5
-        }
-      }
-    ]
-  },
-  {
     "name": "nuzu_abandoned_b",
     "collectables": [
       {
@@ -2459,65 +1865,6 @@
     ]
   },
   {
-    "name": "nuzu_boilerroom",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "industrial_city",
-        "position": {
-          "orientation": "left",
-          "x": 12.5,
-          "y": 7,
-          "z": 11.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "nuzu_dorm",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "industrial_city",
-        "position": {
-          "orientation": "right",
-          "x": 6.5,
-          "y": 1,
-          "z": 9
-        }
-      }
-    ]
-  },
-  {
-    "name": "nuzu_school",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 5,
-          "y": 5,
-          "z": 5
-        },
-        "time": "code"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "industrial_city",
-        "position": {
-          "orientation": "right",
-          "x": 1.5,
-          "y": 1,
-          "z": 4
-        }
-      }
-    ]
-  },
-  {
     "name": "observatory",
     "collectables": [
       {
@@ -2528,6 +1875,17 @@
           "y": 44,
           "z": 6
         }
+      },
+      {
+        "name": "telescope",
+        "anti": 1,
+        "position": {
+          "orientation": "front",
+          "x": 27.5,
+          "y": 41,
+          "z": 34.5
+        },
+        "time": 506
       }
     ],
     "doors": [
@@ -2540,17 +1898,7 @@
           "y": 5,
           "z": 12.5
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "telescope",
-        "position": {
-          "orientation": "front",
-          "x": 27.5,
-          "y": 41,
-          "z": 34.5
-        }
+        "time": 350
       },
       {
         "name": "door",
@@ -2561,7 +1909,7 @@
           "y": 27,
           "z": 50.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "secret",
@@ -2585,137 +1933,6 @@
     ]
   },
   {
-    "name": "oldschool",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 7.125,
-          "y": 4.5,
-          "z": 7.5
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_city",
-        "position": {
-          "orientation": "back",
-          "x": 11.5,
-          "y": 2,
-          "z": 11.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "oldschool_ruins",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 7.125,
-          "y": 4.5,
-          "z": 7.5
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_city_ruins",
-        "position": {
-          "orientation": "back",
-          "x": 11,
-          "y": 2,
-          "z": 11.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "orrery",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "visitor",
-        "position": {
-          "orientation": "right",
-          "x": 41.5,
-          "y": 47.5,
-          "z": 18
-        }
-      },
-      {
-        "name": "door",
-        "to": "orrery_b",
-        "position": {
-          "orientation": "front",
-          "x": 21.0625,
-          "y": 47.5,
-          "z": 20.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "orrery_b",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "orrery",
-        "position": {
-          "orientation": "right",
-          "x": 22.5,
-          "y": 42.5,
-          "z": 18
-        }
-      }
-    ]
-  },
-  {
-    "name": "owl",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 17.5,
-          "y": 12.5,
-          "z": 10
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "graveyard_gate",
-        "position": {
-          "orientation": "front",
-          "x": 18,
-          "y": 17,
-          "z": 15
-        },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "big_owl",
-        "position": {
-          "orientation": "back",
-          "x": 18,
-          "y": 17,
-          "z": 13.5625
-        }
-      }
-    ]
-  },
-  {
     "name": "parlor",
     "collectables": [
       {
@@ -2725,8 +1942,7 @@
           "x": 18.5,
           "y": 4,
           "z": 5.5
-        },
-        "time": "code"
+        }
       },
       {
         "name": "key",
@@ -2736,7 +1952,7 @@
           "y": 2,
           "z": 8.5
         },
-        "time": "chest"
+        "time": 150
       }
     ],
     "doors": [
@@ -2804,7 +2020,7 @@
           "y": 33,
           "z": 30.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -2815,7 +2031,7 @@
           "y": 55,
           "z": 32.5
         },
-        "time": "far"
+        "time": 350
       }
     ]
   },
@@ -2842,7 +2058,7 @@
           "y": 41,
           "z": 14.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "low",
@@ -2930,6 +2146,17 @@
           "y": 46,
           "z": 25
         }
+      },
+      {
+        "name": "extractor_a",
+        "bit": 1,
+        "position": {
+          "orientation": "left",
+          "x": 8.5,
+          "y": 42,
+          "z": 32.5
+        },
+        "time": 926
       }
     ],
     "doors": [
@@ -2942,18 +2169,7 @@
           "y": 37,
           "z": 18.5
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "extractor_a",
-        "position": {
-          "orientation": "left",
-          "x": 8.5,
-          "y": 42,
-          "z": 32.5
-        },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -2964,7 +2180,7 @@
           "y": 28,
           "z": 15.5
         },
-        "time": "far"
+        "time": 350
       }
     ]
   },
@@ -2988,7 +2204,7 @@
           "y": 52,
           "z": 14.5
         },
-        "time": "chest"
+        "time": 150
       }
     ],
     "doors": [
@@ -3020,22 +2236,6 @@
           "x": 18.5,
           "y": 29,
           "z": 11.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "purple_lodge",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_city",
-        "position": {
-          "orientation": "front",
-          "x": 7,
-          "y": 2,
-          "z": 4.5
         }
       }
     ]
@@ -3125,7 +2325,7 @@
           "y": 21,
           "z": 15.5
         },
-        "time": "far",
+        "time": 350,
         "cost": "lock"
       },
       {
@@ -3137,7 +2337,7 @@
           "y": 5,
           "z": 15.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -3147,48 +2347,6 @@
           "x": 22.5,
           "y": 91,
           "z": 36.5625
-        }
-      }
-    ]
-  },
-  {
-    "name": "ritual",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "nature_hub",
-        "position": {
-          "orientation": "front",
-          "x": 8.5,
-          "y": 54,
-          "z": 13.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "school",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 7,
-          "y": 3,
-          "z": 7
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "villageville_3d",
-        "position": {
-          "orientation": "left",
-          "x": 8.5,
-          "y": 1,
-          "z": 4
         }
       }
     ]
@@ -3213,7 +2371,7 @@
           "y": 41,
           "z": 14.5
         },
-        "time": "code"
+        "time": 218
       }
     ],
     "doors": [
@@ -3295,19 +2453,20 @@
           "y": 42,
           "z": 35
         }
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "sewer_treasure_one",
+        "name": "sewer_treasure_one",
+        "key": 1,
         "position": {
           "orientation": "back",
           "x": 8.5,
           "y": 22,
           "z": 8.5
-        }
-      },
+        },
+        "time": 406
+      }
+    ],
+    "doors": [
       {
         "name": "door",
         "to": "sewer_pivot",
@@ -3488,6 +2647,17 @@
           "y": 34,
           "z": 5
         }
+      },
+      {
+        "name": "sewer_treasure_one",
+        "key": 1,
+        "position": {
+          "orientation": "front",
+          "x": 6.5,
+          "y": 22,
+          "z": 31.5
+        },
+        "time": 442
       }
     ],
     "doors": [
@@ -3501,16 +2671,6 @@
           "z": 30.5
         },
         "cost": "lock"
-      },
-      {
-        "name": "door",
-        "to": "sewer_treasure_two",
-        "position": {
-          "orientation": "front",
-          "x": 6.5,
-          "y": 22,
-          "z": 31.5
-        }
       },
       {
         "name": "door",
@@ -3554,7 +2714,7 @@
           "y": 42,
           "z": 12.5
         },
-        "time": "chest"
+        "time": 150
       }
     ],
     "doors": [
@@ -3590,7 +2750,7 @@
           "y": 41.5,
           "z": 14
         },
-        "time": "code"
+        "time": 118
       }
     ],
     "doors": [
@@ -3620,6 +2780,16 @@
       }
     ],
     "doors": [
+      {
+        "name": "door",
+        "to": "well_2",
+        "position": {
+          "x": 13.5,
+          "y": 27,
+          "z": 35.5
+        },
+        "time": 268
+      },
       {
         "name": "door",
         "to": "sewer_hub",
@@ -3657,16 +2827,6 @@
         }
       },
       {
-        "name": "door",
-        "to": "lava",
-        "position": {
-          "orientation": "left",
-          "x": 11.5,
-          "y": 27,
-          "z": 12
-        }
-      },
-      {
         "name": "secret",
         "to": "nuzu_abandoned_b",
         "position": {
@@ -3676,86 +2836,6 @@
           "z": 11.5
         },
         "cost": "secret"
-      }
-    ]
-  },
-  {
-    "name": "sewer_treasure_one",
-    "collectables": [
-      {
-        "name": "key",
-        "key": 1,
-        "position": {
-          "x": 13,
-          "y": 23,
-          "z": 12
-        },
-        "time": "chest"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "sewer_hub",
-        "position": {
-          "orientation": "left",
-          "x": 10.5,
-          "y": 15,
-          "z": 12
-        }
-      }
-    ]
-  },
-  {
-    "name": "sewer_treasure_two",
-    "collectables": [
-      {
-        "name": "key",
-        "key": 1,
-        "position": {
-          "x": 14.5,
-          "y": 20,
-          "z": 14.5
-        },
-        "time": "chest"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "sewer_pillars",
-        "position": {
-          "orientation": "right",
-          "x": 19.5,
-          "y": 9,
-          "z": 18.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "showers",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 6.5625,
-          "y": 2,
-          "z": 8
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "industrial_city",
-        "position": {
-          "orientation": "left",
-          "x": 13.5,
-          "y": 1,
-          "z": 6.5
-        }
       }
     ]
   },
@@ -3810,7 +2890,7 @@
           "y": 10.5,
           "z": 28
         },
-        "time": "far"
+        "time": 350
       }
     ]
   },
@@ -3980,49 +3060,6 @@
     ]
   },
   {
-    "name": "telescope",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 18,
-          "y": 36,
-          "z": 20
-        },
-        "time": "code"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "observatory",
-        "position": {
-          "orientation": "right",
-          "x": 23.5,
-          "y": 19.5,
-          "z": 18
-        }
-      }
-    ]
-  },
-  {
-    "name": "temple_of_love",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "water_pyramid",
-        "position": {
-          "orientation": "front",
-          "x": 10,
-          "y": 8,
-          "z": 11.5
-        }
-      }
-    ]
-  },
-  {
     "name": "throne",
     "collectables": [
       {
@@ -4033,6 +3070,17 @@
           "y": 40,
           "z": 27.5
         }
+      },
+      {
+        "name": "zu_unfold",
+        "anti": 1,
+        "position": {
+          "orientation": "front",
+          "x": 30.5,
+          "y": 26,
+          "z": 32.5
+        },
+        "time": 1648
       }
     ],
     "doors": [
@@ -4055,17 +3103,7 @@
           "y": 10,
           "z": 21.5
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "zu_unfold",
-        "position": {
-          "orientation": "front",
-          "x": 30.5,
-          "y": 26,
-          "z": 32.5
-        }
+        "time": 350
       },
       {
         "name": "door",
@@ -4076,7 +3114,7 @@
           "y": 26,
           "z": 23.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "secret",
@@ -4100,7 +3138,19 @@
           "y": 60.5,
           "z": 4.5
         },
-        "time": "code"
+        "time": 148
+      },
+      {
+        "name": "tree_crumble",
+        "bit": 1,
+        "position": {
+          "orientation": "back",
+          "x": 41.5,
+          "y": 50,
+          "z": 3.5
+        },
+        "time": 310,
+        "cost": "lock"
       }
     ],
     "doors": [
@@ -4132,59 +3182,6 @@
           "x": 6.5,
           "y": 99,
           "z": 31.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "tree_crumble",
-        "position": {
-          "orientation": "back",
-          "x": 41.5,
-          "y": 50,
-          "z": 3.5
-        },
-        "cost": "lock"
-      }
-    ]
-  },
-  {
-    "name": "tree_crumble",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 22.5,
-          "y": 52,
-          "z": 22.5
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "tree",
-        "position": {
-          "orientation": "front",
-          "x": 24.5,
-          "y": 40,
-          "z": 24.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "tree_of_death",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "crypt",
-        "position": {
-          "orientation": "right",
-          "x": 10.5,
-          "y": 13,
-          "z": 58.25
         }
       }
     ]
@@ -4235,7 +3232,7 @@
           "y": 50.5,
           "z": 19.5
         },
-        "time": "code"
+        "time": 148
       }
     ],
     "doors": [
@@ -4258,7 +3255,7 @@
           "y": 51,
           "z": 9.5
         },
-        "time": "far"
+        "time": 350
       }
     ]
   },
@@ -4357,7 +3354,7 @@
           "y": 16,
           "z": 6.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -4437,7 +3434,63 @@
           "y": 43,
           "z": 22
         },
-        "time": "chest"
+        "time": 150
+      },
+      {
+        "name": "abandoned_a",
+        "bit": 1,
+        "position": {
+          "orientation": "right",
+          "x": 37.3125,
+          "y": 42,
+          "z": 30.5
+        },
+        "time": 214
+      },
+      {
+        "name": "abandoned_b",
+        "bit": 1,
+        "position": {
+          "orientation": "back",
+          "x": 31.5,
+          "y": 38,
+          "z": 28.6875
+        },
+        "time": 244
+      },
+      {
+        "name": "boileroom",
+        "anti": 1,
+        "position": {
+          "orientation": "front",
+          "x": 35.5,
+          "y": 30,
+          "z": 35.5
+        },
+        "time": 317,
+        "cost": "lock"
+      },
+      {
+        "name": "kitchen",
+        "bit": 1,
+        "position": {
+          "orientation": "front",
+          "x": 36.5,
+          "y": 42,
+          "z": 35.90625
+        },
+        "time": 220
+      },
+      {
+        "name": "school",
+        "bit": 1,
+        "position": {
+          "orientation": "front",
+          "x": 30.5,
+          "y": 38,
+          "z": 37.40625
+        },
+        "time": 190
       }
     ],
     "doors": [
@@ -4449,37 +3502,6 @@
           "x": 30.5,
           "y": 22,
           "z": 37.40625
-        }
-      },
-      {
-        "name": "door",
-        "to": "boileroom",
-        "position": {
-          "orientation": "front",
-          "x": 35.5,
-          "y": 30,
-          "z": 35.5
-        },
-        "cost": "lock"
-      },
-      {
-        "name": "door",
-        "to": "school",
-        "position": {
-          "orientation": "front",
-          "x": 30.5,
-          "y": 38,
-          "z": 37.40625
-        }
-      },
-      {
-        "name": "door",
-        "to": "abandoned_a",
-        "position": {
-          "orientation": "right",
-          "x": 37.3125,
-          "y": 42,
-          "z": 30.5
         }
       },
       {
@@ -4501,46 +3523,6 @@
           "y": 11,
           "z": 34.5
         }
-      },
-      {
-        "name": "door",
-        "to": "kitchen",
-        "position": {
-          "orientation": "front",
-          "x": 36.5,
-          "y": 42,
-          "z": 35.90625
-        }
-      },
-      {
-        "name": "door",
-        "to": "abandoned_b",
-        "position": {
-          "orientation": "back",
-          "x": 31.5,
-          "y": 38,
-          "z": 28.6875
-        }
-      },
-      {
-        "name": "door",
-        "to": "abandoned_c",
-        "position": {
-          "orientation": "left",
-          "x": 27.6875,
-          "y": 30,
-          "z": 31.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "geezer_house",
-        "position": {
-          "orientation": "front",
-          "x": 47.5,
-          "y": 33,
-          "z": 47.375
-        }
       }
     ]
   },
@@ -4555,19 +3537,20 @@
           "y": 54,
           "z": 20.5
         }
+      },
+      {
+        "name": "code_machine",
+        "anti": 1,
+        "position": {
+          "orientation": "right",
+          "x": 41,
+          "y": 34,
+          "z": 33.5
+        },
+        "time": 266
       }
     ],
     "doors": [
-      {
-        "name": "door",
-        "to": "orrery",
-        "position": {
-          "orientation": "front",
-          "x": 27.5,
-          "y": 36,
-          "z": 20.5
-        }
-      },
       {
         "name": "door",
         "to": "observatory",
@@ -4577,17 +3560,7 @@
           "y": 16,
           "z": 23.25
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "code_machine",
-        "position": {
-          "orientation": "right",
-          "x": 41,
-          "y": 34,
-          "z": 33.5
-        }
+        "time": 350
       },
       {
         "name": "secret",
@@ -4640,7 +3613,7 @@
           "y": 34,
           "z": 26.5
         },
-        "time": "chest"
+        "time": 150
       }
     ],
     "doors": [
@@ -4653,7 +3626,7 @@
           "y": 4,
           "z": 10.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -4664,117 +3637,7 @@
           "y": 13,
           "z": 15.5
         },
-        "time": "far"
-      }
-    ]
-  },
-  {
-    "name": "wall_interior_a",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 10,
-          "y": 11.5,
-          "z": 9.5
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "wall_village",
-        "position": {
-          "orientation": "left",
-          "x": 10.5,
-          "y": 6,
-          "z": 9.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "wall_interior_b",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "wall_village",
-        "position": {
-          "orientation": "left",
-          "x": 10,
-          "y": 6,
-          "z": 14.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "wall_interior_hole",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "wall_village",
-        "position": {
-          "orientation": "left",
-          "x": 10,
-          "y": 6,
-          "z": 14.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "wall_kitchen",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 10,
-          "y": 12.5,
-          "z": 14
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "wall_village",
-        "position": {
-          "orientation": "left",
-          "x": 10,
-          "y": 6,
-          "z": 14.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "wall_school",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 10,
-          "y": 8,
-          "z": 10.4375
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "wall_village",
-        "position": {
-          "orientation": "left",
-          "x": 10,
-          "y": 6,
-          "z": 14.5
-        }
+        "time": 350
       }
     ]
   },
@@ -4789,29 +3652,42 @@
           "y": 35,
           "z": 20.5
         }
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "wall_interior_a",
+        "name": "wall_interior_a",
+        "bit": 1,
         "position": {
           "orientation": "front",
           "x": 32.5,
           "y": 17,
           "z": 22.5
-        }
+        },
+        "time": 220
       },
       {
-        "name": "door",
-        "to": "wall_interior_b",
+        "name": "wall_kitchen",
+        "bit": 1,
         "position": {
           "orientation": "front",
-          "x": 13.5,
-          "y": 17,
-          "z": 31.5
-        }
+          "x": 36.5,
+          "y": 25,
+          "z": 20.5
+        },
+        "time": 220
       },
+      {
+        "name": "wall_school",
+        "bit": 1,
+        "position": {
+          "orientation": "front",
+          "x": 46.5,
+          "y": 17,
+          "z": 13.5
+        },
+        "time": 214
+      }
+    ],
+    "doors": [
       {
         "name": "door",
         "to": "memory_core",
@@ -4820,36 +3696,6 @@
           "x": 20.5,
           "y": 16,
           "z": 21
-        }
-      },
-      {
-        "name": "door",
-        "to": "wall_interior_hole",
-        "position": {
-          "orientation": "front",
-          "x": 28.5,
-          "y": 29,
-          "z": 20.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "wall_kitchen",
-        "position": {
-          "orientation": "front",
-          "x": 36.5,
-          "y": 25,
-          "z": 20.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "wall_school",
-        "position": {
-          "orientation": "front",
-          "x": 46.5,
-          "y": 17,
-          "z": 13.5
         }
       }
     ]
@@ -4865,19 +3711,30 @@
           "y": 25,
           "z": 4.5
         }
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "fox",
+        "name": "fox",
+        "bit": 1,
         "position": {
           "orientation": "left",
           "x": 23.4375,
           "y": 31,
           "z": 22.375
-        }
+        },
+        "time": 254
       },
+      {
+        "name": "water_wheel",
+        "position": {
+          "orientation": "back",
+          "x": 16,
+          "y": 15,
+          "z": 13.5
+        },
+        "time": 666
+      }
+    ],
+    "doors": [
       {
         "name": "door",
         "to": "nature_hub",
@@ -4887,17 +3744,7 @@
           "y": 14,
           "z": 2.5
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "water_wheel",
-        "position": {
-          "orientation": "back",
-          "x": 16,
-          "y": 15,
-          "z": 13.5
-        }
+        "time": 350
       },
       {
         "name": "door",
@@ -4928,77 +3775,24 @@
           "y": 23,
           "z": 16.5
         }
-      },
-      {
-        "name": "door",
-        "to": "zu_zuish",
-        "position": {
-          "orientation": "right",
-          "x": 5.5,
-          "y": 9,
-          "z": 3.5
-        },
-        "cost": "water"
-      }
-    ]
-  },
-  {
-    "name": "watertower_secret",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 9,
-          "y": 16,
-          "z": 11.5
-        },
-        "time": "code"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "water_tower",
-        "position": {
-          "orientation": "front",
-          "x": 9,
-          "y": 8,
-          "z": 12.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "water_pyramid",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "bell_tower",
-        "position": {
-          "orientation": "front",
-          "x": 40,
-          "y": 23,
-          "z": 30.5
-        },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "temple_of_love",
-        "position": {
-          "orientation": "back",
-          "x": 40,
-          "y": 16,
-          "z": 26.5
-        }
       }
     ]
   },
   {
     "name": "water_tower",
-    "collectables": [],
+    "collectables": [
+      {
+        "name": "watertower_secret",
+        "anti": 1,
+        "position": {
+          "orientation": "left",
+          "x": 19.5,
+          "y": 22,
+          "z": 25.5
+        },
+        "time": 356
+      }
+    ],
     "doors": [
       {
         "name": "door",
@@ -5009,7 +3803,7 @@
           "y": 33,
           "z": 23.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -5019,58 +3813,6 @@
           "x": 12.5,
           "y": 50,
           "z": 19.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "watertower_secret",
-        "position": {
-          "orientation": "left",
-          "x": 19.5,
-          "y": 22,
-          "z": 25.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "water_wheel",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "water_wheel_b",
-        "position": {
-          "orientation": "front",
-          "x": 16.5,
-          "y": 10,
-          "z": 18.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "waterfall",
-        "position": {
-          "orientation": "right",
-          "x": 19,
-          "y": 20,
-          "z": 15.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "water_wheel_b",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "water_wheel",
-        "position": {
-          "orientation": "right",
-          "x": 19.5,
-          "y": 10,
-          "z": 15.5
         }
       }
     ]
@@ -5117,7 +3859,7 @@
           "y": 19,
           "z": 30.5
         },
-        "time": "far"
+        "time": 350
       }
     ]
   },
@@ -5134,7 +3876,17 @@
           "y": 29,
           "z": 16.5
         },
-        "time": "far"
+        "time": 350
+      },
+      {
+        "name": "door",
+        "to": "sewer_start",
+        "position": {
+          "x": 14.5,
+          "y": 42,
+          "z": 15.4375
+        },
+        "time": 268
       },
       {
         "name": "secret",
@@ -5168,7 +3920,7 @@
           "y": 44,
           "z": 10
         },
-        "time": "chest"
+        "time": 150
       }
     ],
     "doors": [
@@ -5246,8 +3998,7 @@
           "x": 38.5,
           "y": 57.5,
           "z": 41.5
-        },
-        "time": "code"
+        }
       },
       {
         "name": "bit_1",
@@ -5311,6 +4062,17 @@
           "y": 59,
           "z": 36.5
         }
+      },
+      {
+        "name": "oldschool",
+        "bit": 1,
+        "position": {
+          "orientation": "front",
+          "x": 51.5,
+          "y": 43,
+          "z": 31.5
+        },
+        "time": 214
       }
     ],
     "doors": [
@@ -5342,26 +4104,6 @@
           "x": 39.5,
           "y": 43,
           "z": 35.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "oldschool",
-        "position": {
-          "orientation": "front",
-          "x": 51.5,
-          "y": 43,
-          "z": 31.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "purple_lodge",
-        "position": {
-          "orientation": "right",
-          "x": 53.5,
-          "y": 36,
-          "z": 29.5
         }
       },
       {
@@ -5398,7 +4140,30 @@
   },
   {
     "name": "zu_city_ruins",
-    "collectables": [],
+    "collectables": [
+      {
+        "name": "oldschool_ruins",
+        "bit": 1,
+        "position": {
+          "orientation": "front",
+          "x": 49.5,
+          "y": 43,
+          "z": 30.5
+        },
+        "time": 214
+      },
+      {
+        "name": "zu_house_qr",
+        "anti": 1,
+        "position": {
+          "orientation": "left",
+          "x": 32.5,
+          "y": 36,
+          "z": 43.5
+        },
+        "time": 318
+      }
+    ],
     "doors": [
       {
         "name": "door",
@@ -5419,7 +4184,7 @@
           "y": 22,
           "z": 28.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -5430,7 +4195,7 @@
           "y": 34,
           "z": 13.875
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "door",
@@ -5464,16 +4229,6 @@
       },
       {
         "name": "door",
-        "to": "zu_house_qr",
-        "position": {
-          "orientation": "left",
-          "x": 32.5,
-          "y": 36,
-          "z": 43.5
-        }
-      },
-      {
-        "name": "door",
         "to": "throne",
         "position": {
           "orientation": "left",
@@ -5481,17 +4236,7 @@
           "y": 36,
           "z": 45.5
         },
-        "time": "far"
-      },
-      {
-        "name": "door",
-        "to": "oldschool_ruins",
-        "position": {
-          "orientation": "front",
-          "x": 49.5,
-          "y": 43,
-          "z": 30.5
-        }
+        "time": 350
       },
       {
         "name": "door",
@@ -5569,8 +4314,7 @@
           "x": 5,
           "y": 42.5,
           "z": 5
-        },
-        "time": "code"
+        }
       },
       {
         "name": "cube",
@@ -5623,33 +4367,6 @@
     ]
   },
   {
-    "name": "zu_fork",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 16.5,
-          "y": 18,
-          "z": 15.5
-        },
-        "time": "code"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "lighthouse",
-        "position": {
-          "orientation": "right",
-          "x": 17.5,
-          "y": 13,
-          "z": 15.5
-        }
-      }
-    ]
-  },
-  {
     "name": "zu_heads",
     "collectables": [
       {
@@ -5686,7 +4403,7 @@
           "y": 6,
           "z": 5.5
         },
-        "time": "code"
+        "time": 118
       },
       {
         "name": "bit_1",
@@ -5722,7 +4439,7 @@
           "y": 3,
           "z": 9.5
         },
-        "time": "chest"
+        "time": 150
       }
     ],
     "doors": [
@@ -5739,33 +4456,6 @@
     ]
   },
   {
-    "name": "zu_house_qr",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 9,
-          "y": 6,
-          "z": 8
-        },
-        "time": "code"
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_city_ruins",
-        "position": {
-          "orientation": "back",
-          "x": 11.5,
-          "y": 2,
-          "z": 11.5
-        }
-      }
-    ]
-  },
-  {
     "name": "zu_house_ruin_gate",
     "collectables": [
       {
@@ -5776,7 +4466,7 @@
           "y": 3,
           "z": 9.5
         },
-        "time": "chest"
+        "time": 150
       }
     ],
     "doors": [
@@ -5855,19 +4545,20 @@
           "y": 40,
           "z": 24.5625
         }
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "library_interior",
+        "name": "library_interior",
+        "bit": 1,
         "position": {
           "orientation": "right",
           "x": 35.5,
           "y": 30,
           "z": 25
-        }
-      },
+        },
+        "time": 426
+      }
+    ],
+    "doors": [
       {
         "name": "door",
         "to": "clock",
@@ -5877,7 +4568,7 @@
           "y": 14,
           "z": 27.5
         },
-        "time": "far"
+        "time": 350
       },
       {
         "name": "secret",
@@ -5953,22 +4644,6 @@
     ]
   },
   {
-    "name": "zu_tetris",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "ancient_walls",
-        "position": {
-          "orientation": "right",
-          "x": 19.5,
-          "y": 14,
-          "z": 13.5
-        }
-      }
-    ]
-  },
-  {
     "name": "zu_throne_ruins",
     "collectables": [
       {
@@ -5979,7 +4654,7 @@
           "y": 5.5,
           "z": 5.25
         },
-        "time": "code"
+        "time": 118
       },
       {
         "name": "bit_1",
@@ -6000,38 +4675,6 @@
           "x": 12.5,
           "y": 2,
           "z": 6
-        }
-      }
-    ]
-  },
-  {
-    "name": "zu_unfold",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "throne",
-        "position": {
-          "orientation": "front",
-          "x": 8.5,
-          "y": 54,
-          "z": 14.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "zu_zuish",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "waterfall",
-        "position": {
-          "orientation": "front",
-          "x": 13.5,
-          "y": 54,
-          "z": 22.5
         }
       }
     ]

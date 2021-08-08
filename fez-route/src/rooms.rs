@@ -6,6 +6,26 @@ use std::fs::File;
 use std::io::Read;
 use std::path::Path;
 
+/*
+
+80 frames to open a door
+60 frames to open a secret
+370 frames to lesser warp (not including a long load)
++40 frames to enter a hole
++140 frames to long load, not added yet
++230 frames to far load
+268 frames to use well (including long load)
+150 frames to open any chest
+70 frames to spawn an anti
+48 frames to collect any cube (avg 6 per bit)
+170 frames to activate fork
+200 frames to explode bomb, ignoring
+
+15 frames to rotate
+6ish frames per tile in both xz and y (12 for out and back)
+
+*/
+
 #[derive(Deserialize, Debug, Copy, Clone)]
 #[serde(rename_all = "lowercase")]
 enum Orientation {
@@ -31,14 +51,6 @@ pub enum Cost {
     Secret,
 }
 
-#[derive(Deserialize, Debug, Copy, Clone)]
-#[serde(rename_all = "lowercase")]
-pub enum Time {
-    Chest,
-    Code,
-    Far,
-}
-
 #[derive(Deserialize, Debug)]
 struct Collectable<'a> {
     name: &'a str,
@@ -51,7 +63,7 @@ struct Collectable<'a> {
     anti: i32,
     #[serde(default)]
     key: i32,
-    time: Option<Time>,
+    time: Option<f64>,
     cost: Option<Cost>,
     #[serde(skip, default = "NodeIndex::end")]
     index: NodeIndex,
@@ -62,7 +74,7 @@ struct Door<'a> {
     to: Option<&'a str>,
     name: &'a str,
     position: Position,
-    time: Option<Time>,
+    time: Option<f64>,
     cost: Option<Cost>,
     #[serde(skip, default = "NodeIndex::end")]
     index: NodeIndex,
@@ -81,12 +93,10 @@ pub struct Node {
     /// .{name}.{to} for dest
     /// {room}.{name} for collectables
     pub name: String,
-    pub bit: i32,
-    pub cube: i32,
-    pub anti: i32,
-    pub key: i32,
+    pub bits: i32,
+    pub keys: i32,
     pub cost: Option<Cost>,
-    pub time: Option<Time>,
+    pub time: f64,
 }
 
 #[derive(Debug)]
@@ -177,26 +187,26 @@ fn as_graph(rooms: &mut [Room]) -> Graph<Node, Edge> {
 
 fn add_room_nodes(graph: &mut Graph<Node, Edge>, room: &mut Room) {
     for collectable in &mut room.collectables {
+        let bits = collectable.bit + (collectable.cube + collectable.anti) * 8;
         collectable.index = graph.add_node(Node {
             name: format!("{}.{}", room.name, collectable.name),
-            bit: collectable.bit,
-            cube: collectable.cube,
-            anti: collectable.anti,
-            key: collectable.key,
+            bits,
+            keys: collectable.key,
             cost: collectable.cost,
-            time: collectable.time,
+            // TODO this is pretty accurate, go ahead and put this everywhere
+            time: collectable.time.unwrap_or(bits as f64 * 6.0),
         });
     }
     for door in &mut room.doors {
         if let Some(to) = door.to {
             door.index = graph.add_node(Node {
                 name: format!("{}.{}.{}", room.name, door.name, to),
-                bit: 0,
-                cube: 0,
-                anti: 0,
-                key: 0,
+                bits: 0,
+                keys: 0,
                 cost: door.cost,
-                time: door.time,
+                // TODO this is not accurate, maybe could infer some based on cost and/or name
+                //      but really just need to check them all
+                time: door.time.unwrap_or(40.0),
             });
         }
     }
@@ -204,7 +214,13 @@ fn add_room_nodes(graph: &mut Graph<Node, Edge>, room: &mut Room) {
 
 fn add_room_edges(graph: &mut Graph<Node, Edge>, rooms: &[Room], room: &Room) {
     for collectable in &room.collectables {
-        add_edges(graph, collectable.index, collectable.position, room);
+        add_edges(
+            graph,
+            collectable.index,
+            collectable.position,
+            room,
+            collectable.index,
+        );
     }
     for door in &room.doors {
         if let Some(to) = door.to {
@@ -216,7 +232,7 @@ fn add_room_edges(graph: &mut Graph<Node, Edge>, rooms: &[Room], room: &Room) {
                     .filter(|&rev| rev.to.map_or(true, |rev_to| rev_to == room.name))
                     .min_by_key(|&rev| rev.to.is_some())
                 {
-                    add_edges(graph, door.index, rev.position, to);
+                    add_edges(graph, door.index, rev.position, to, rev.index);
                 } else {
                     warn!("no dest door for {}.{}.{}", room.name, door.name, to.name)
                 }
@@ -227,7 +243,13 @@ fn add_room_edges(graph: &mut Graph<Node, Edge>, rooms: &[Room], room: &Room) {
     }
 }
 
-fn add_edges(graph: &mut Graph<Node, Edge>, src_i: NodeIndex, src_pos: Position, room: &Room) {
+fn add_edges(
+    graph: &mut Graph<Node, Edge>,
+    src_i: NodeIndex,
+    src_pos: Position,
+    room: &Room,
+    exclude: NodeIndex,
+) {
     room.collectables
         .iter()
         .map(|c| (c.index, c.position))
@@ -237,7 +259,7 @@ fn add_edges(graph: &mut Graph<Node, Edge>, src_i: NodeIndex, src_pos: Position,
                 .filter(|&d| d.to.is_some())
                 .map(|d| (d.index, d.position)),
         )
-        .filter(|&(i, _)| i != src_i)
+        .filter(|&(i, _)| i != exclude)
         .for_each(|(dest_i, dest_pos)| {
             graph.add_edge(
                 src_i,
