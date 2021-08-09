@@ -18,3 +18,10 @@ fn main() {
     });
     opt::optimize(&graph, 8 * 8);
 }
+
+#[test]
+fn load() {
+    SimpleLogger::new().init().unwrap();
+
+    rooms::load("../fez-route/rooms.json");
+}

@@ -116,7 +116,32 @@ pub fn load(path: impl AsRef<Path>) -> Graph<Node, Edge> {
     File::open(path).unwrap().read_to_string(&mut s).unwrap();
     let mut rooms: Vec<Room> = serde_json::from_str(&s).unwrap();
     verify_unique_names(&rooms);
+    check_for_improvements(&rooms);
     as_graph(&mut rooms)
+}
+
+// fractal has 1 doors and 4 collectables
+// grave_ghost has 1 doors and 2 collectables
+// industrial_city has 1 doors and 3 collectables
+// mine_bomb_pillar has 1 doors and 2 collectables
+// sewer_pivot has 1 doors and 2 collectables
+// sewer_qr has 1 doors and 2 collectables
+// stargate_ruins has 1 doors and 2 collectables
+// wall_village has 1 doors and 4 collectables
+// windmill_cave has 1 doors and 2 collectables
+// zu_house_empty has 1 doors and 2 collectables
+// zu_throne_ruins has 1 doors and 2 collectables
+fn check_for_improvements(rooms: &[Room]) {
+    rooms.iter().for_each(|room| {
+        if room.doors.len() == 1 && room.collectables.len() >= 1 {
+            warn!(
+                "{} has {} doors and {} collectables",
+                room.name,
+                room.doors.len(),
+                room.collectables.len()
+            );
+        }
+    })
 }
 
 fn verify_unique_names(rooms: &[Room]) {

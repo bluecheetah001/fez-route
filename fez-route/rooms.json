@@ -569,6 +569,17 @@
           "y": 47.5,
           "z": 20.5
         }
+      },
+      {
+        "name": "zu_4_side",
+        "anti": 1,
+        "position": {
+          "orientation": "front",
+          "x": 28,
+          "y": 33,
+          "z": 22.5
+        },
+        "time": 2143
       }
     ],
     "doors": [
@@ -580,16 +591,6 @@
           "x": 34.5,
           "y": 22.5,
           "z": 18.4375
-        }
-      },
-      {
-        "name": "door",
-        "to": "zu_4_side",
-        "position": {
-          "orientation": "front",
-          "x": 28,
-          "y": 33,
-          "z": 22.5
         }
       }
     ]
@@ -1933,42 +1934,6 @@
     ]
   },
   {
-    "name": "parlor",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 18.5,
-          "y": 4,
-          "z": 5.5
-        }
-      },
-      {
-        "name": "key",
-        "key": 1,
-        "position": {
-          "x": 5.5,
-          "y": 2,
-          "z": 8.5
-        },
-        "time": 150
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "villageville_3d",
-        "position": {
-          "orientation": "right",
-          "x": 14.5,
-          "y": 1,
-          "z": 9
-        }
-      }
-    ]
-  },
-  {
     "name": "pivot_one",
     "collectables": [
       {
@@ -2061,58 +2026,12 @@
         "time": 350
       },
       {
-        "name": "low",
-        "to": "pivot_three_cave",
-        "position": {
-          "orientation": "left",
-          "x": 13.5,
-          "y": 50,
-          "z": 14.5
-        }
-      },
-      {
-        "name": "high",
-        "to": "pivot_three_cave",
-        "position": {
-          "orientation": "right",
-          "x": 16.5,
-          "y": 61,
-          "z": 14.5
-        }
-      },
-      {
         "name": "warp_left",
         "to": "industrial_hub",
         "position": {
           "x": 14.5,
           "y": 66,
           "z": 14.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "pivot_three_cave",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "low",
-        "to": "pivot_three",
-        "position": {
-          "orientation": "right",
-          "x": 25.5,
-          "y": 66,
-          "z": 16.5
-        }
-      },
-      {
-        "name": "high",
-        "to": "pivot_three",
-        "position": {
-          "orientation": "right",
-          "x": 10.5,
-          "y": 99,
-          "z": 23.5
         }
       }
     ]
@@ -3482,6 +3401,18 @@
         "time": 220
       },
       {
+        "name": "parlor",
+        "anti": 1,
+        "key": 1,
+        "position": {
+          "orientation": "front",
+          "x": 36.5,
+          "y": 26,
+          "z": 37.40625
+        },
+        "time": 1069
+      },
+      {
         "name": "school",
         "bit": 1,
         "position": {
@@ -3501,16 +3432,6 @@
           "orientation": "front",
           "x": 30.5,
           "y": 22,
-          "z": 37.40625
-        }
-      },
-      {
-        "name": "door",
-        "to": "parlor",
-        "position": {
-          "orientation": "front",
-          "x": 36.5,
-          "y": 26,
           "z": 37.40625
         }
       },
@@ -3963,32 +3884,6 @@
     ]
   },
   {
-    "name": "zu_4_side",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_heads",
-        "position": {
-          "orientation": "left",
-          "x": 22.5,
-          "y": 11,
-          "z": 13.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "fractal",
-        "position": {
-          "orientation": "right",
-          "x": 26.5,
-          "y": 12,
-          "z": 13.5
-        }
-      }
-    ]
-  },
-  {
     "name": "zu_bridge",
     "collectables": [
       {
@@ -4073,6 +3968,50 @@
           "z": 31.5
         },
         "time": 214
+      },
+      {
+        "name": "zu_house_empty_b",
+        "key": 1,
+        "position": {
+          "orientation": "left",
+          "x": 40,
+          "y": 43,
+          "z": 34.5
+        },
+        "time": 352
+      },
+      {
+        "name": "zu_house_ruin_gate",
+        "key": 1,
+        "position": {
+          "orientation": "left",
+          "x": 39.5,
+          "y": 43,
+          "z": 35.5
+        },
+        "time": 364
+      },
+      {
+        "name": "zu_house_ruin_visitors",
+        "bit": 1,
+        "position": {
+          "orientation": "left",
+          "x": 37.875,
+          "y": 43,
+          "z": 33.5
+        },
+        "time": 220
+      },
+      {
+        "name": "zu_house_scaffolding",
+        "bit": 1,
+        "position": {
+          "orientation": "left",
+          "x": 34.5,
+          "y": 36,
+          "z": 44.5
+        },
+        "time": 247
       }
     ],
     "doors": [
@@ -4098,42 +4037,12 @@
       },
       {
         "name": "door",
-        "to": "zu_house_ruin_gate",
-        "position": {
-          "orientation": "left",
-          "x": 39.5,
-          "y": 43,
-          "z": 35.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "zu_house_scaffolding",
-        "position": {
-          "orientation": "left",
-          "x": 34.5,
-          "y": 36,
-          "z": 44.5
-        }
-      },
-      {
-        "name": "door",
         "to": "zu_house_empty",
         "position": {
           "orientation": "back",
           "x": 41.5,
           "y": 36,
           "z": 27.5
-        }
-      },
-      {
-        "name": "door",
-        "to": "zu_house_empty_b",
-        "position": {
-          "orientation": "left",
-          "x": 40,
-          "y": 43,
-          "z": 34.5
         }
       }
     ]
@@ -4215,16 +4124,6 @@
           "x": 39.5,
           "y": 36,
           "z": 26.375
-        }
-      },
-      {
-        "name": "door",
-        "to": "zu_house_ruin_visitors",
-        "position": {
-          "orientation": "left",
-          "x": 37.875,
-          "y": 43,
-          "z": 33.5
         }
       },
       {
@@ -4367,32 +4266,6 @@
     ]
   },
   {
-    "name": "zu_heads",
-    "collectables": [
-      {
-        "name": "anti",
-        "anti": 1,
-        "position": {
-          "x": 8.5,
-          "y": 68,
-          "z": 8.5
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_4_side",
-        "position": {
-          "orientation": "front",
-          "x": 8.5,
-          "y": 54,
-          "z": 14.5
-        }
-      }
-    ]
-  },
-  {
     "name": "zu_house_empty",
     "collectables": [
       {
@@ -4424,112 +4297,6 @@
           "x": 12.5,
           "y": 2,
           "z": 6
-        }
-      }
-    ]
-  },
-  {
-    "name": "zu_house_empty_b",
-    "collectables": [
-      {
-        "name": "key",
-        "key": 1,
-        "position": {
-          "x": 9,
-          "y": 3,
-          "z": 9.5
-        },
-        "time": 150
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_city",
-        "position": {
-          "orientation": "left",
-          "x": 12.5,
-          "y": 2,
-          "z": 5.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "zu_house_ruin_gate",
-    "collectables": [
-      {
-        "name": "key",
-        "key": 1,
-        "position": {
-          "x": 11,
-          "y": 3,
-          "z": 9.5
-        },
-        "time": 150
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_city",
-        "position": {
-          "orientation": "left",
-          "x": 6.5,
-          "y": 2,
-          "z": 4.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "zu_house_ruin_visitors",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 6,
-          "y": 4,
-          "z": 10
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_city_ruins",
-        "position": {
-          "orientation": "left",
-          "x": 12.5,
-          "y": 2,
-          "z": 5.5
-        }
-      }
-    ]
-  },
-  {
-    "name": "zu_house_scaffolding",
-    "collectables": [
-      {
-        "name": "bit_1",
-        "bit": 1,
-        "position": {
-          "x": 11.5,
-          "y": 8.75,
-          "z": 5
-        }
-      }
-    ],
-    "doors": [
-      {
-        "name": "door",
-        "to": "zu_city",
-        "position": {
-          "orientation": "right",
-          "x": 5.5,
-          "y": 2,
-          "z": 10.25
         }
       }
     ]
