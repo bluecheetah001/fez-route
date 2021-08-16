@@ -600,7 +600,7 @@
     "collectables": [],
     "doors": [
       {
-        "name": "door",
+        "name": "start",
         "to": "villageville_3d",
         "position": {
           "orientation": "right",
@@ -2897,8 +2897,7 @@
     "collectables": [],
     "doors": [
       {
-        "name": "door",
-        "to": "zu_city",
+        "name": "end",
         "position": {
           "orientation": "front",
           "x": 12,
@@ -3426,8 +3425,7 @@
     ],
     "doors": [
       {
-        "name": "door",
-        "to": "gomez_house",
+        "name": "start",
         "position": {
           "orientation": "front",
           "x": 30.5,
@@ -4016,7 +4014,7 @@
     ],
     "doors": [
       {
-        "name": "door",
+        "name": "end",
         "to": "stargate",
         "position": {
           "orientation": "right",

@@ -1,7 +1,7 @@
 use glpk_sys::*;
 use std::ffi::CString;
 use std::mem::MaybeUninit;
-use std::ops::{Deref, DerefMut, Mul};
+use std::ops::{Deref, DerefMut, Index, IndexMut, Mul};
 use std::os::raw::{c_int, c_uint, c_void};
 
 use log::*;
@@ -42,6 +42,10 @@ trait IntoGlp {
     type Output;
     fn into_glp(self) -> Self::Output;
 }
+trait FromGlp {
+    type Output;
+    fn from_glp(self) -> Self::Output;
+}
 impl IntoGlp for String {
     type Output = CString;
     fn into_glp(self) -> Self::Output {
@@ -53,6 +57,13 @@ impl IntoGlp for usize {
     fn into_glp(self) -> Self::Output {
         debug_assert!(self <= c_int::MAX as usize, "size {} is too big", self);
         self as c_int
+    }
+}
+impl FromGlp for c_int {
+    type Output = usize;
+    fn from_glp(self) -> Self::Output {
+        debug_assert!(self >= 0, "size {} is too small", self);
+        self as usize
     }
 }
 impl IntoGlp for Vec<Term> {
@@ -224,7 +235,18 @@ impl DerefMut for Problem {
         unsafe { &mut *self.0 }
     }
 }
-// TODO could implement Borrow, ToOwned, and AsRef to support generic programing
+impl AsRef<Prob> for Problem {
+    fn as_ref(&self) -> &Prob {
+        self.deref()
+    }
+}
+impl AsMut<Prob> for Problem {
+    fn as_mut(&mut self) -> &mut Prob {
+        self.deref_mut()
+    }
+}
+// TODO theoretically could implement Borrow and ToOwned
+//      but I'm not using these as a key (like in a HashMap) or in a Cow
 
 pub struct Prob(glp_prob);
 impl Prob {
@@ -238,6 +260,9 @@ impl Prob {
         unsafe { glp_set_obj_dir(self.as_ptr(), dir.into_glp()) };
     }
 
+    pub fn num_vars(&self) -> usize {
+        unsafe { glp_get_num_cols(self.as_ptr()) }.from_glp()
+    }
     pub fn add_vars(&mut self, specs: Vec<Var>) -> VarRefs {
         let vars = self.alloc_vars(specs.len().into_glp());
         vars.iter()
@@ -253,6 +278,7 @@ impl Prob {
     fn alloc_vars(&mut self, len: c_int) -> VarRefs {
         let first = unsafe {
             if len == 0 {
+                // TODO add 1?
                 glp_get_num_cols(self.as_ptr())
             } else {
                 glp_add_cols(self.as_ptr(), len)
@@ -299,6 +325,7 @@ impl Prob {
     fn alloc_exprs(&mut self, len: c_int) -> VarRefs {
         let first = unsafe {
             if len == 0 {
+                // TODO add 1?
                 glp_get_num_rows(self.as_ptr())
             } else {
                 glp_add_rows(self.as_ptr(), len)
@@ -323,15 +350,13 @@ impl Prob {
         }
     }
 
-    pub fn optimize_mip<T: FnMut(Reason<'_>)>(&mut self, callback: T) -> Result<(), Error> {
+    pub fn optimize_mip<T: MipCallback>(&mut self, callback: &mut T) -> Result<(), Error> {
         let mut options = MaybeUninit::uninit();
         unsafe { glp_init_iocp(options.as_mut_ptr()) };
         let mut options = unsafe { options.assume_init() };
         options.presolve = GLP_ON as c_int;
         options.binarize = GLP_ON as c_int;
-        // docs say this is good for binary problems
-        // being lazy and setting this here instead of exposing
-        options.ps_heur = GLP_ON as c_int;
+        // disabling default heuristics since it doesn't respect lazy exprs that haven't been added yet
         options.sr_heur = GLP_OFF as c_int;
 
         assert_eq!(
@@ -341,31 +366,49 @@ impl Prob {
         );
 
         #[deny(unsafe_op_in_unsafe_fn)]
-        unsafe extern "C" fn c_callback<T: FnMut(Reason<'_>)>(
+        unsafe extern "C" fn c_callback<T: MipCallback>(
             tree: *mut glp_tree,
             callback: *mut c_void,
         ) {
-            let mip_callback = unsafe { &mut *(callback as *mut T) };
+            let callback = unsafe { &mut *(callback as *mut T) };
+            // although glpk might complain about mutating the problem, there are no other mutable references in rust
+            let problem = unsafe { &mut *(glp_ios_get_prob(tree) as *mut Prob) };
             match unsafe { glp_ios_reason(tree) } as c_uint {
-                // request for lazy exprs to be added
+                // GLP_ISELECT => {
+                // more flexibility around what sub problem to work on other then which branch to take
+                // }
                 GLP_IROWGEN => {
-                    let problem = unsafe { &mut *(glp_ios_get_prob(tree) as *mut Prob) };
-                    mip_callback(Reason::AddLazyExprs(problem));
+                    if let Some(expr) = callback.get_lazy_expr(problem) {
+                        problem.add_expr(expr);
+                    }
                 }
-                // request for cuts to be added
+                // GLP_ICUTGEN => {
                 // remember that cuts cannot remove integral solutions
                 // they are instead for cutting a fractional corner into multiple (hopefully) integral corners
-                // GLP_ICUTGEN => {
                 // }
+                GLP_IHEUR => {
+                    if let Some(solution) = callback.get_heuristic_solution(problem) {
+                        assert_eq!(
+                            problem.num_vars(),
+                            solution.len(),
+                            "heuristic solution must have the correct number of vars"
+                        );
+                        unsafe { glp_ios_heur_sol(tree, &solution.0[0] as *const f64) };
+                    }
+                }
+                GLP_IBRANCH => {
+                    if let Some((var, dir)) = callback.get_branch(problem) {
+                        unsafe { glp_ios_branch_upon(tree, var.0, dir.into_glp()) };
+                    }
+                }
                 GLP_IBINGO => {
-                    let problem = unsafe { &*(glp_ios_get_prob(tree) as *mut Prob) };
-                    mip_callback(Reason::NewBestSolution(problem));
+                    callback.new_best_solution(problem);
                 }
                 _ => {}
             }
         }
         options.cb_func = Some(c_callback::<T>);
-        options.cb_info = &callback as *const T as *mut c_void;
+        options.cb_info = callback as *mut T as *mut c_void;
 
         let err = unsafe { glp_intopt(self.as_ptr(), &options as *const glp_iocp) };
         match err as c_uint {
@@ -382,6 +425,67 @@ impl Prob {
                 warn!("Unknown intopt error {}", err);
                 Err(Error::Unknown)
             }
+        }
+    }
+}
+
+pub trait MipCallback {
+    fn get_lazy_expr(&mut self, problem: &Prob) -> Option<Expr> {
+        let _ = problem;
+        None
+    }
+
+    fn get_heuristic_solution(&mut self, problem: &Prob) -> Option<Solution> {
+        let _ = problem;
+        None
+    }
+
+    fn get_branch(&mut self, problem: &Prob) -> Option<(VarRef, Branch)> {
+        let _ = problem;
+        None
+    }
+
+    fn new_best_solution(&mut self, problem: &Prob) {
+        let _ = problem;
+    }
+}
+
+#[derive(Debug)]
+pub struct Solution(Vec<f64>);
+impl Solution {
+    pub fn zeros(len: usize) -> Self {
+        // index 0 is ignored by glpk
+        Self(vec![0.0; len + 1])
+    }
+    pub fn len(&self) -> usize {
+        self.0.len() - 1
+    }
+}
+impl Index<VarRef> for Solution {
+    type Output = f64;
+    fn index(&self, index: VarRef) -> &Self::Output {
+        &self.0[index.0.from_glp()]
+    }
+}
+impl IndexMut<VarRef> for Solution {
+    fn index_mut(&mut self, index: VarRef) -> &mut Self::Output {
+        &mut self.0[index.0.from_glp()]
+    }
+}
+
+#[derive(Copy, Clone, Debug)]
+pub enum Branch {
+    Up,
+    Down,
+    Auto,
+}
+impl IntoGlp for Branch {
+    type Output = c_int;
+    fn into_glp(self) -> Self::Output {
+        match self {
+            Self::Up => GLP_UP_BRNCH as c_int,
+            Self::Down => GLP_DN_BRNCH as c_int,
+            Self::Auto => GLP_NO_BRNCH as c_int,
         }
     }
 }

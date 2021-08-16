@@ -1,35 +1,40 @@
 use crate::rooms::Node;
 use itertools::Itertools;
 use log::*;
-use petgraph::graph::Graph;
-use petgraph::visit::{EdgeRef, IntoNodeReferences};
+use petgraph::stable_graph::{EdgeReference, NodeIndex, StableGraph};
+use petgraph::visit::{
+    Bfs, Dfs, DfsPostOrder, EdgeFiltered, EdgeRef, FilterEdge, GraphBase, GraphRef,
+    IntoEdgeReferences, IntoEdges, IntoEdgesDirected, IntoNeighbors, IntoNeighborsDirected,
+    IntoNodeIdentifiers, IntoNodeReferences, Reversed, Topo, VisitMap, Visitable, Walker,
+};
 use petgraph::EdgeDirection::{Incoming, Outgoing};
+use std::collections::HashSet;
 use std::fs;
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
 pub const EXT: &'static str = "png";
-const EPS: f64 = 1e-6;
 
-const COLOR_SCALE: [ColorF; 5] = [
+const RBG_COLOR_SCALE: &[ColorF] = &[
     (1.0, 0.0, 0.0),
     (1.0, 0.0, 1.0),
     (0.0, 0.0, 1.0),
     (0.0, 1.0, 1.0),
     (0.0, 1.0, 0.0),
 ];
+
 fn color_scale(value: f64) -> ColorF {
     if value <= 0.0 {
-        COLOR_SCALE[0]
+        RBG_COLOR_SCALE[0]
     } else {
-        let value = value * COLOR_SCALE.len() as f64;
+        let value = value * RBG_COLOR_SCALE.len() as f64;
         let i = value.floor() as usize;
         let f = value.fract();
-        if i >= COLOR_SCALE.len() - 1 {
-            COLOR_SCALE[COLOR_SCALE.len() - 1]
+        if i >= RBG_COLOR_SCALE.len() - 1 {
+            RBG_COLOR_SCALE[RBG_COLOR_SCALE.len() - 1]
         } else {
-            interp(COLOR_SCALE[i], COLOR_SCALE[i + 1], f)
+            interp(RBG_COLOR_SCALE[i], RBG_COLOR_SCALE[i + 1], f)
         }
     }
 }
@@ -40,10 +45,6 @@ fn interp(a: ColorF, b: ColorF, f: f64) -> ColorF {
         f * (b.1 - a.1) + a.1,
         f * (b.2 - a.2) + a.2,
     )
-}
-
-fn scale(a: ColorF, s: f64) -> ColorF {
-    (s * a.0, s * a.1, s * a.2)
 }
 
 fn as_bytes(a: ColorF) -> ColorU {
@@ -77,69 +78,27 @@ impl Renderer {
         Ok(())
     }
 
-    pub fn render(&self, filename: String, graph: &Graph<&Node, f64>) {
-        let graph = graph.filter_map(
+    pub fn render(&self, filename: String, values: &StableGraph<&Node, f64>, first: NodeIndex) {
+        let heuristic: HashSet<_> = DfsPostOrder::new(&values, first)
+            .iter(&values)
+            .tuple_windows()
+            .filter_map(|(target, source)| values.find_edge(source, target))
+            .collect();
+
+        let graph = values.filter_map(
             |i, &n| {
                 if IntoIterator::into_iter([
-                    graph.edges_directed(i, Outgoing),
-                    graph.edges_directed(i, Incoming),
+                    values.edges_directed(i, Outgoing),
+                    values.edges_directed(i, Incoming),
                 ])
-                .flatten()
-                .any(|e| *e.weight() > EPS)
+                .any(|mut iter| iter.next().is_some())
                 {
                     Some(n.name.as_str())
                 } else {
                     None
                 }
             },
-            |_, &e| {
-                if e > EPS {
-                    Some(color(e))
-                } else {
-                    None
-                }
-            },
-        );
-
-        let path = self.folder.join(filename);
-        if let Err(e) = try_render(&path, &graph) {
-            error!("failed to generate graphviz at {:?}: {}", path, e);
-        }
-    }
-
-    pub fn render_diff(
-        &self,
-        filename: String,
-        prev: &Graph<&Node, f64>,
-        next: &Graph<&Node, f64>,
-    ) {
-        self.render(filename, next);
-        return;
-
-        let graph = next.filter_map(
-            |i, &n| {
-                if IntoIterator::into_iter([
-                    prev.edges_directed(i, Outgoing),
-                    prev.edges_directed(i, Incoming),
-                    next.edges_directed(i, Outgoing),
-                    next.edges_directed(i, Incoming),
-                ])
-                .flatten()
-                .any(|e| *e.weight() > EPS)
-                {
-                    Some(n.name.as_str())
-                } else {
-                    None
-                }
-            },
-            |i, &next_e| {
-                let prev_e = prev.edge_weight(i).map_or(0.0, |&prev_e| prev_e);
-                if next_e > EPS || prev_e > EPS {
-                    Some(diff_color(prev_e, next_e))
-                } else {
-                    None
-                }
-            },
+            |i, &e| Some((color(e), heuristic.contains(&i))),
         );
 
         let path = self.folder.join(filename);
@@ -156,22 +115,7 @@ fn color(value: f64) -> ColorU {
     as_bytes(color_scale(value))
 }
 
-fn diff_color(prev: f64, next: f64) -> ColorU {
-    let dist = prev.max(next);
-    let angle = if next < prev {
-        next / prev / 2.0
-    } else if next == prev {
-        0.5
-    } else {
-        1.0 - prev / next / 2.0
-    };
-
-    let color = color_scale(angle);
-
-    as_bytes(scale(color, dist * 0.8 + 0.2))
-}
-
-fn try_render(path: &Path, graph: &Graph<&str, ColorU>) -> io::Result<()> {
+fn try_render(path: &Path, graph: &StableGraph<&str, (ColorU, bool)>) -> io::Result<()> {
     let mut child = Command::new("fdp")
         .arg("-T")
         .arg(EXT)
@@ -213,11 +157,12 @@ fn try_render(path: &Path, graph: &Graph<&str, ColorU>) -> io::Result<()> {
     graph
         .edge_references()
         .map(|e| (graph[e.source()], graph[e.target()], *e.weight()))
-        .try_for_each(|(s, t, (r, g, b))| {
+        .try_for_each(|(s, t, ((r, g, b), h))| {
+            let w = if h { "3" } else { "1" };
             writeln!(
                 output,
-                "  \"{}\" -> \"{}\" [ color = \"#{:02x}{:02x}{:02x}\" ];",
-                s, t, r, g, b
+                "  \"{}\" -> \"{}\" [ color = \"#{:02x}{:02x}{:02x}\" penwidth = {}];",
+                s, t, r, g, b, w
             )
         })?;
 

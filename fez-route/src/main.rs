@@ -1,21 +1,14 @@
 mod opt;
 mod render;
 mod rooms;
+// mod value;
 
 use simple_logger::SimpleLogger;
 
 fn main() {
     SimpleLogger::new().init().unwrap();
 
-    let mut graph = rooms::load("fez-route/rooms.json");
-    graph.retain_nodes(|g, i| {
-        let n = &g[i];
-        match n.name.as_str() {
-            "villageville_3d.door.gomez_house" => false,
-            "stargate.door.zu_city" => false,
-            _ => true,
-        }
-    });
+    let graph = rooms::load("fez-route/rooms.json");
     opt::optimize(&graph, 8 * 8);
 }
 

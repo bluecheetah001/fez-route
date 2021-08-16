@@ -1,6 +1,6 @@
 use itertools::Itertools;
 use log::*;
-use petgraph::graph::{Graph, NodeIndex};
+use petgraph::stable_graph::{NodeIndex, StableGraph};
 use serde::Deserialize;
 use std::fs::File;
 use std::io::Read;
@@ -51,7 +51,7 @@ pub enum Cost {
     Secret,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 struct Collectable<'a> {
     name: &'a str,
     position: Position,
@@ -69,7 +69,7 @@ struct Collectable<'a> {
     index: NodeIndex,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 struct Door<'a> {
     to: Option<&'a str>,
     name: &'a str,
@@ -80,14 +80,14 @@ struct Door<'a> {
     index: NodeIndex,
 }
 
-#[derive(Deserialize, Debug, Default)]
+#[derive(Deserialize, Debug, Default, Clone)]
 struct Room<'a> {
     name: &'a str,
     collectables: Vec<Collectable<'a>>,
     doors: Vec<Door<'a>>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Node {
     /// {room}.{name}.{to} for doors
     /// .{name}.{to} for dest
@@ -99,9 +99,10 @@ pub struct Node {
     pub time: f64,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Edge {
     pub time: Distance,
+    pub cost: Option<Cost>,
 }
 
 #[derive(Debug, Copy, Clone)]
@@ -111,7 +112,7 @@ pub struct Distance {
     pub dz: f64,
 }
 
-pub fn load(path: impl AsRef<Path>) -> Graph<Node, Edge> {
+pub fn load(path: impl AsRef<Path>) -> StableGraph<Node, Edge> {
     let mut s = String::new();
     File::open(path).unwrap().read_to_string(&mut s).unwrap();
     let mut rooms: Vec<Room> = serde_json::from_str(&s).unwrap();
@@ -199,8 +200,8 @@ fn verify_unique_inner_names(room: &Room) {
         });
 }
 
-fn as_graph(rooms: &mut [Room]) -> Graph<Node, Edge> {
-    let mut graph = Graph::new();
+fn as_graph(rooms: &mut [Room]) -> StableGraph<Node, Edge> {
+    let mut graph = StableGraph::new();
     rooms
         .iter_mut()
         .for_each(|room| add_room_nodes(&mut graph, room));
@@ -210,7 +211,7 @@ fn as_graph(rooms: &mut [Room]) -> Graph<Node, Edge> {
     graph
 }
 
-fn add_room_nodes(graph: &mut Graph<Node, Edge>, room: &mut Room) {
+fn add_room_nodes(graph: &mut StableGraph<Node, Edge>, room: &mut Room) {
     for collectable in &mut room.collectables {
         let bits = collectable.bit + (collectable.cube + collectable.anti) * 8;
         collectable.index = graph.add_node(Node {
@@ -237,7 +238,7 @@ fn add_room_nodes(graph: &mut Graph<Node, Edge>, room: &mut Room) {
     }
 }
 
-fn add_room_edges(graph: &mut Graph<Node, Edge>, rooms: &[Room], room: &Room) {
+fn add_room_edges(graph: &mut StableGraph<Node, Edge>, rooms: &[Room], room: &Room) {
     for collectable in &room.collectables {
         add_edges(
             graph,
@@ -269,7 +270,7 @@ fn add_room_edges(graph: &mut Graph<Node, Edge>, rooms: &[Room], room: &Room) {
 }
 
 fn add_edges(
-    graph: &mut Graph<Node, Edge>,
+    graph: &mut StableGraph<Node, Edge>,
     src_i: NodeIndex,
     src_pos: Position,
     room: &Room,
@@ -277,15 +278,15 @@ fn add_edges(
 ) {
     room.collectables
         .iter()
-        .map(|c| (c.index, c.position))
+        .map(|c| (c.index, c.position, c.cost))
         .chain(
             room.doors
                 .iter()
                 .filter(|&d| d.to.is_some())
-                .map(|d| (d.index, d.position)),
+                .map(|d| (d.index, d.position, d.cost)),
         )
-        .filter(|&(i, _)| i != exclude)
-        .for_each(|(dest_i, dest_pos)| {
+        .filter(|&(i, _, _)| i != exclude)
+        .for_each(|(dest_i, dest_pos, cost)| {
             graph.add_edge(
                 src_i,
                 dest_i,
@@ -295,6 +296,7 @@ fn add_edges(
                         dy: dest_pos.y - src_pos.y,
                         dz: dest_pos.z - src_pos.z,
                     },
+                    cost,
                 },
             );
         })
