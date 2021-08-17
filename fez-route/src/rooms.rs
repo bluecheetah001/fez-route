@@ -43,7 +43,7 @@ struct Position {
     orientation: Option<Orientation>,
 }
 
-#[derive(Deserialize, Debug, Copy, Clone)]
+#[derive(Deserialize, Debug, Copy, Clone, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
 pub enum Cost {
     Lock,

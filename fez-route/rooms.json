@@ -2222,7 +2222,7 @@
       },
       {
         "name": "warp_left",
-        "to": "sewer_hub",
+        "to": "nature_hub",
         "position": {
           "x": 44.5,
           "y": 82.5,

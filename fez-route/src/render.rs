@@ -5,7 +5,7 @@ use petgraph::stable_graph::{EdgeReference, NodeIndex, StableGraph};
 use petgraph::visit::{
     Bfs, Dfs, DfsPostOrder, EdgeFiltered, EdgeRef, FilterEdge, GraphBase, GraphRef,
     IntoEdgeReferences, IntoEdges, IntoEdgesDirected, IntoNeighbors, IntoNeighborsDirected,
-    IntoNodeIdentifiers, IntoNodeReferences, Reversed, Topo, VisitMap, Visitable, Walker,
+    IntoNodeIdentifiers, IntoNodeReferences, NodeRef, Reversed, Topo, VisitMap, Visitable, Walker,
 };
 use petgraph::EdgeDirection::{Incoming, Outgoing};
 use std::collections::HashSet;
@@ -137,8 +137,8 @@ fn try_render(path: &Path, graph: &StableGraph<&str, (ColorU, bool)>) -> io::Res
 
     graph
         .node_references()
-        .sorted_by_key(|(_, &n)| n)
-        .group_by(|(_, &n)| n.split('.').next().unwrap())
+        .sorted_by_key(|n| *n.weight())
+        .group_by(|n| n.weight().split('.').next().unwrap())
         .into_iter()
         .try_for_each(|(k, mut g)| {
             writeln!(output, "  subgraph \"cluster-{}\" {{", k)?;

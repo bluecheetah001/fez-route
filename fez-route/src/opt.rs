@@ -10,7 +10,7 @@ use petgraph::stable_graph::{EdgeIndex, EdgeReference, NodeIndex, StableGraph};
 use petgraph::visit::{
     Bfs, Dfs, DfsPostOrder, EdgeFiltered, EdgeRef, GraphBase, GraphRef, IntoEdgeReferences,
     IntoEdges, IntoEdgesDirected, IntoNeighbors, IntoNeighborsDirected, IntoNodeIdentifiers,
-    IntoNodeReferences, Reversed, Topo, VisitMap, Visitable, Walker,
+    IntoNodeReferences, NodeRef, Reversed, Topo, VisitMap, Visitable, Walker,
 };
 use petgraph::Direction::{Incoming, Outgoing};
 use serde::__private::doc;
@@ -18,6 +18,10 @@ use std::collections::HashMap;
 use std::iter;
 
 const EPS: f64 = 1e-6;
+const TRACE_CUT: i32 = i32::MAX;
+const RENDER_CUT: i32 = i32::MAX;
+const TRACE_BRANCH: i32 = 100;
+const RENDER_BRANCH: i32 = 100;
 
 impl Edge {
     fn get_frames(&self) -> f64 {
@@ -91,6 +95,7 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
     // exprs
     problem.add_exprs(flow_exprs(graph, edges, first_node, last_node));
     problem.add_exprs(capacity_exprs(graph, edges, first_node, last_node));
+    problem.add_exprs(dominator_exprs(graph, edges, first_node));
     // these dont' actually work that well since the 3 cycle can just go in both directions
     problem.add_exprs(no_2_cycles(graph, edges));
     // problem.add_exprs(no_3_cycles(graph, edges));
@@ -107,7 +112,10 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
         last_node: NodeIndex,
         required_bits: i32,
 
-        index: i32,
+        render: i32,
+        cut: i32,
+        branch: i32,
+        solve: i32,
         renderer: Renderer,
     }
 
@@ -118,7 +126,10 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
         last_node,
         required_bits,
 
-        index: 0,
+        render: 0,
+        cut: 0,
+        branch: 0,
+        solve: 0,
         renderer: Renderer::new("rendered").unwrap(),
     };
 
@@ -133,27 +144,44 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
                 self.required_bits,
                 &value_graph,
             ) {
-                // self.index += 1;
-                // trace!("adding cut {}: {}", self.index, expr.name);
-                // self.renderer.render_diff(
-                //     format!("{}-cut.{}", self.index, EXT),
-                //     &self.prev,
-                //     &value_graph,
-                // );
-                // self.prev = value_graph;
-                Some(expr)
-            } else {
-                self.index += 1;
-                if self.index % 100 == 0 {
-                    trace!("solved relaxation {}", self.index);
+                self.cut += 1;
+                if self.cut % TRACE_CUT == 0 {
+                    trace!("cut {}-{}-{}", self.solve, self.branch, self.cut);
                 }
-                if self.index % 1000 == 0 {
+                if self.cut % RENDER_CUT == 0 {
+                    self.render += 1;
                     self.renderer.render(
-                        format!("{}-branch.{}", self.index, EXT),
+                        format!(
+                            "{}-cut-{}-{}-{}.{}",
+                            self.render, self.solve, self.branch, self.cut, EXT
+                        ),
                         &value_graph,
                         self.first_node,
                     );
                 }
+                Some(expr)
+            } else {
+                self.branch += 1;
+                if self.branch % TRACE_BRANCH == 0 {
+                    trace!(
+                        "solved relaxation {}-{}-{}",
+                        self.solve,
+                        self.branch,
+                        self.cut
+                    );
+                }
+                if self.branch % RENDER_BRANCH == 0 {
+                    self.render += 1;
+                    self.renderer.render(
+                        format!(
+                            "{}-branch-{}-{}-{}.{}",
+                            self.render, self.solve, self.branch, self.cut, EXT
+                        ),
+                        &value_graph,
+                        self.first_node,
+                    );
+                }
+                self.cut = 0;
                 None
             }
         }
@@ -236,97 +264,31 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
         }
 
         fn new_best_solution(&mut self, problem: &Prob) {
-            self.index += 1;
-            info!("new best solution {}", self.index);
+            self.render += 1;
+            self.solve += 1;
+            info!("new best solution {}-{}", self.solve, self.branch);
             self.renderer.render(
-                format!("{}-SOLVE.{}", self.index, EXT),
+                format!(
+                    "{}-solution-{}-{}.{}",
+                    self.render, self.solve, self.branch, EXT
+                ),
                 &value_graph(self.graph, problem, self.edges),
                 self.first_node,
             );
+            self.cut = 0;
+            self.branch = 0;
         }
     }
 
     problem.optimize_mip(&mut closure).unwrap();
 
-    closure.index += 1;
+    closure.render += 1;
     closure.renderer.render(
-        format!("{}-BEST.{}", closure.index, EXT),
+        format!("{}-BEST.{}", closure.render, EXT),
         &value_graph_int(graph, &problem, edges),
         closure.first_node,
     );
     trace!("done!");
-}
-
-#[test]
-fn order() {
-    /*
-             / 2 \ /5\
-        0 - 1     4 - 6 = 7 - 8   9 = 10
-             \ 3 /
-    */
-    let graph: StableGraph<(), ()> = StableGraph::from_edges(&[
-        (0, 1),
-        (1, 2),
-        (1, 3),
-        (2, 4),
-        (3, 4),
-        (4, 5),
-        (4, 6),
-        (5, 6),
-        (6, 7),
-        (7, 6),
-        (7, 8),
-        (9, 10),
-        (10, 9),
-    ]);
-    let first = NodeIndex::new(0);
-
-    fn longest_simple<'g>(
-        graph: &'g StableGraph<(), ()>,
-        first: NodeIndex,
-    ) -> Option<Vec<NodeIndex>> {
-        let mut simple = DfsPostOrder::new(graph, first).iter(graph).collect_vec();
-        if simple
-            .iter()
-            .tuple_windows()
-            .all(|(&target, &source)| graph.find_edge(source, target).is_some())
-        {
-            simple.reverse();
-            Some(simple)
-        } else {
-            None
-        }
-    }
-
-    // TODO does this ever find a path with enough bits when simple doesn't?
-    fn longext_complex<'g>(graph: &'g StableGraph<(), ()>, first: NodeIndex) -> Vec<NodeIndex> {
-        #[derive(Debug, Clone, Copy, Default)]
-        struct State {
-            // TODO might also want the edge index? for now just re-find it
-            next: Option<NodeIndex>,
-            bits: i32,
-        }
-        let mut paths = HashMap::<NodeIndex, State>::new();
-        for i in DfsPostOrder::new(graph, first).iter(graph) {
-            let state = graph
-                .edges(i)
-                .filter_map(|e| {
-                    paths.get(&e.target()).map(|s| State {
-                        next: Some(e.target()),
-                        bits: s.bits + 1, // assuming all nodes have 1 bit for testing
-                    })
-                })
-                .max_by_key(|s| s.bits)
-                .unwrap_or_default();
-            paths.insert(i, state);
-        }
-        std::iter::successors(Some(first), |prev| {
-            paths.get(prev).and_then(|state| state.next)
-        })
-        .collect_vec()
-    }
-
-    longest_simple(&graph, first);
 }
 
 fn value_graph<'g>(
@@ -409,21 +371,21 @@ fn flow_exprs(
 ) -> Vec<Expr> {
     graph
         .node_references()
-        .map(|(n, node)| Expr {
-            name: format!("{}/flow", node.name),
-            bounds: Bounds::Fixed(if n == first_node {
+        .map(|n| Expr {
+            name: format!("{}/flow", n.weight().name),
+            bounds: Bounds::Fixed(if n.id() == first_node {
                 1.0
-            } else if n == last_node {
+            } else if n.id() == last_node {
                 -1.0
             } else {
                 0.0
             }),
             terms: graph
-                .edges_directed(n, Incoming)
+                .edges_directed(n.id(), Incoming)
                 .map(|e| edges.get(e.id().index()) * -1.0)
                 .chain(
                     graph
-                        .edges_directed(n, Outgoing)
+                        .edges_directed(n.id(), Outgoing)
                         .map(|e| edges.get(e.id().index()) * 1.0),
                 )
                 .collect(),
@@ -439,14 +401,48 @@ fn capacity_exprs(
 ) -> Vec<Expr> {
     graph
         .node_references()
-        .filter(|&(n, _)| n != first_node && n != last_node)
-        .map(|(n, node)| Expr {
-            name: format!("{}/capacity", node.name),
+        .filter(|n| n.id() != first_node && n.id() != last_node)
+        .map(|n| Expr {
+            name: format!("{}/capacity", n.weight().name),
             bounds: Bounds::Upper(1.0),
             terms: graph
-                .edges_directed(n, Outgoing)
+                .edges_directed(n.id(), Outgoing)
                 .map(|e| edges.get(e.id().index()) * 1.0)
                 .collect(),
+        })
+        .collect()
+}
+
+fn dominator_exprs(
+    graph: &StableGraph<Node, Edge>,
+    edges: VarRefs,
+    first_node: NodeIndex,
+) -> Vec<Expr> {
+    let no_secret_doors = EdgeFiltered::from_fn(graph, |e| e.weight().cost != Some(Cost::Secret));
+    let dominators = dominators::simple_fast(&no_secret_doors, first_node);
+    graph
+        .node_references()
+        .filter_map(|n| {
+            dominators
+                .immediate_dominator(n.id())
+                .filter(|d| *d != first_node)
+                .map(|d| {
+                    info!("{} dominates {}", graph[d].name, graph[n.id()].name);
+                    d
+                })
+                .map(|d| Expr {
+                    name: format!("{}/dominator", n.weight().name),
+                    bounds: Bounds::Upper(0.0),
+                    terms: graph
+                        .edges_directed(n.id(), Incoming)
+                        .map(|e| edges.get(e.id().index()) * 1.0)
+                        .chain(
+                            graph
+                                .edges_directed(d.id(), Incoming)
+                                .map(|e| edges.get(e.id().index()) * -1.0),
+                        )
+                        .collect(),
+                })
         })
         .collect()
 }
@@ -471,14 +467,14 @@ fn no_2_cycles(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Vec<Expr> {
 fn no_3_cycles(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Vec<Expr> {
     graph
         .node_references()
-        .flat_map(|(i, n)| {
+        .flat_map(|n| {
             let sources = graph
-                .edges_directed(i, Incoming)
-                .filter(move |e| i.index() < e.source().index());
+                .edges_directed(n.id(), Incoming)
+                .filter(move |e| n.id().index() < e.source().index());
             // TODO StableGraph.edges_directed doesn't implement Clone
             let targets = graph
-                .edges_directed(i, Outgoing)
-                .filter(move |e| i.index() < e.target().index());
+                .edges_directed(n.id(), Outgoing)
+                .filter(move |e| n.id().index() < e.target().index());
             sources
                 .cartesian_product(targets)
                 .filter_map(|(source_edge, target_edge)| {
@@ -490,7 +486,7 @@ fn no_3_cycles(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Vec<Expr> {
                     name: format!(
                         "{}/{}/{}/cycle",
                         graph[s.source()].name,
-                        n.name,
+                        n.weight().name,
                         graph[t.target()].name
                     ),
                     bounds: Bounds::Upper(2.0),
@@ -511,11 +507,11 @@ fn required_bits_expr(graph: &StableGraph<Node, Edge>, edges: VarRefs, required_
         bounds: Bounds::Lower(required_bits as f64),
         terms: graph
             .node_references()
-            .filter(|&(_, node)| node.bits != 0)
-            .flat_map(|(n, node)| {
+            .filter(|n| n.weight().bits != 0)
+            .flat_map(|n| {
                 graph
-                    .edges_directed(n, Incoming)
-                    .map(move |e| edges.get(e.id().index()) * node.bits as f64)
+                    .edges_directed(n.id(), Incoming)
+                    .map(move |e| edges.get(e.id().index()) * n.weight().bits as f64)
             })
             .collect(),
     }
@@ -527,11 +523,11 @@ fn total_keys_expr(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Expr {
         bounds: Bounds::Lower(0.0),
         terms: graph
             .node_references()
-            .filter(|&(_, node)| node.keys_minus_lock() != 0)
-            .flat_map(|(n, node)| {
+            .filter(|n| n.weight().keys_minus_lock() != 0)
+            .flat_map(|n| {
                 graph
-                    .edges_directed(n, Incoming)
-                    .map(move |e| edges.get(e.id().index()) * node.keys_minus_lock() as f64)
+                    .edges_directed(n.id(), Incoming)
+                    .map(move |e| edges.get(e.id().index()) * n.weight().keys_minus_lock() as f64)
             })
             .collect(),
     }
@@ -540,16 +536,20 @@ fn total_keys_expr(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Expr {
 // fn approx_water_lock_exprs(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Vec<Expr> {
 //     graph
 //         .node_references()
-//         .filter(|(_, node)| node.after_node != NodeIndex::end())
-//         .map(|(n, node)| Expr {
-//             name: format!("{}.after.{}", node.name, graph[node.after_node].name),
+//         .filter(|n| n.weight().after_node != NodeIndex::end())
+//         .map(|n| Expr {
+//             name: format!(
+//                 "{}.after.{}",
+//                 n.weight().name,
+//                 graph[n.weight().after_node].name
+//             ),
 //             bounds: Bounds::Lower(0.0),
 //             terms: graph
-//                 .edges_directed(node.after_node, Incoming)
+//                 .edges_directed(n.weight().after_node, Incoming)
 //                 .map(|e| edges.get(e.id().index()) * 1.0)
 //                 .chain(
 //                     graph
-//                         .edges_directed(n, Incoming)
+//                         .edges_directed(n.id(), Incoming)
 //                         .map(|e| edges.get(e.id().index()) * -1.0),
 //                 )
 //                 .collect(),
