@@ -1,21 +1,18 @@
+use crate::common::heuristic_path;
 use crate::render::{Renderer, EXT};
 use crate::rooms::{Cost, Edge, Node};
 use fixedbitset::FixedBitSet;
 use glpk::*;
-use itertools::{EitherOrBoth, Itertools};
+use itertools::Itertools;
 use log::*;
-use noisy_float::prelude::*;
 use petgraph::algo::dominators;
 use petgraph::stable_graph::{EdgeIndex, EdgeReference, NodeIndex, StableGraph};
 use petgraph::visit::{
-    Bfs, Dfs, DfsPostOrder, EdgeFiltered, EdgeRef, GraphBase, GraphRef, IntoEdgeReferences,
-    IntoEdges, IntoEdgesDirected, IntoNeighbors, IntoNeighborsDirected, IntoNodeIdentifiers,
-    IntoNodeReferences, NodeRef, Reversed, Topo, VisitMap, Visitable, Walker,
+    Dfs, DfsPostOrder, EdgeFiltered, EdgeRef, GraphBase, GraphRef, IntoEdgeReferences, IntoEdges,
+    IntoEdgesDirected, IntoNeighbors, IntoNeighborsDirected, IntoNodeIdentifiers,
+    IntoNodeReferences, NodeRef, VisitMap, Visitable, Walker,
 };
 use petgraph::Direction::{Incoming, Outgoing};
-use serde::__private::doc;
-use std::collections::HashMap;
-use std::iter;
 
 const EPS: f64 = 1e-6;
 const TRACE_CUT: i32 = i32::MAX;
@@ -26,8 +23,8 @@ const RENDER_BRANCH: i32 = 100;
 impl Edge {
     fn get_frames(&self) -> f64 {
         let dist = self.time;
-        let xz_frames = dist.dx.min(dist.dz) * 15.0;
-        let y_frames = dist.dy * 30.0;
+        let xz_frames = dist.dx.min(dist.dz) * 6.0;
+        let y_frames = dist.dy * 6.0;
         xz_frames.max(y_frames)
     }
 }
@@ -157,6 +154,7 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
                         ),
                         &value_graph,
                         self.first_node,
+                        self.last_node,
                     );
                 }
                 Some(expr)
@@ -179,6 +177,7 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
                         ),
                         &value_graph,
                         self.first_node,
+                        self.last_node,
                     );
                 }
                 self.cut = 0;
@@ -221,46 +220,16 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
 
             let value_graph = value_graph(self.graph, problem, self.edges);
 
-            #[derive(Clone, Debug, Default)]
-            struct State<'g> {
-                edge: Option<EdgeReference<'g, f64>>,
-                bits: i32,
-                time: f64,
-            }
-            let mut states = HashMap::<NodeIndex, State>::new();
-            DfsPostOrder::new(&value_graph, self.first_node)
-                .iter(&value_graph)
-                .for_each(|n| {
-                    let last_bits = self.graph[n].bits;
-                    let state = value_graph
-                        .edges(n)
-                        .filter_map(|e| {
-                            states.get(&e.target()).map(|next| State {
-                                edge: Some(e),
-                                bits: last_bits + next.bits,
-                                time: self.graph[e.id()].get_frames() + next.time,
-                            })
-                        })
-                        .max_by(|l, r| {
-                            l.bits
-                                .cmp(&r.bits)
-                                .then(l.time.partial_cmp(&r.time).unwrap().reverse())
-                        })
-                        .unwrap_or_default();
-                    states.insert(n, state);
-                });
-            iter::successors(states.get(&self.first_node), |&s| {
-                s.edge.and_then(|e| states.get(&e.target()))
-            })
-            .filter_map(|s| s.edge)
-            .filter(|e| 1.0 - *e.weight() > EPS)
-            .enumerate()
-            .map(|(i, e)| {
-                let score = weight_score(*e.weight()) + index_score(i);
-                (e.id(), score)
-            })
-            .min_by(|l, r| l.1.partial_cmp(&r.1).unwrap())
-            .map(|(e, _)| (self.edges.get(e.index()), Branch::Up))
+            heuristic_path(&value_graph, self.first_node, self.last_node)
+                .into_iter()
+                .filter(|e| 1.0 - *e.weight() > EPS)
+                .enumerate()
+                .map(|(i, e)| {
+                    let score = weight_score(*e.weight()) + index_score(i);
+                    (e.id(), score)
+                })
+                .min_by(|l, r| l.1.partial_cmp(&r.1).unwrap())
+                .map(|(e, _)| (self.edges.get(e.index()), Branch::Up))
         }
 
         fn new_best_solution(&mut self, problem: &Prob) {
@@ -274,6 +243,7 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
                 ),
                 &value_graph(self.graph, problem, self.edges),
                 self.first_node,
+                self.last_node,
             );
             self.cut = 0;
             self.branch = 0;
@@ -287,6 +257,7 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
         format!("{}-BEST.{}", closure.render, EXT),
         &value_graph_int(graph, &problem, edges),
         closure.first_node,
+        closure.last_node,
     );
     trace!("done!");
 }
@@ -426,10 +397,6 @@ fn dominator_exprs(
             dominators
                 .immediate_dominator(n.id())
                 .filter(|d| *d != first_node)
-                .map(|d| {
-                    info!("{} dominates {}", graph[d].name, graph[n.id()].name);
-                    d
-                })
                 .map(|d| Expr {
                     name: format!("{}/dominator", n.weight().name),
                     bounds: Bounds::Upper(0.0),

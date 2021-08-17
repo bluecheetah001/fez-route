@@ -1,11 +1,12 @@
+use crate::common::heuristic_path;
 use crate::rooms::Node;
 use itertools::Itertools;
 use log::*;
 use petgraph::stable_graph::{EdgeReference, NodeIndex, StableGraph};
 use petgraph::visit::{
-    Bfs, Dfs, DfsPostOrder, EdgeFiltered, EdgeRef, FilterEdge, GraphBase, GraphRef,
-    IntoEdgeReferences, IntoEdges, IntoEdgesDirected, IntoNeighbors, IntoNeighborsDirected,
-    IntoNodeIdentifiers, IntoNodeReferences, NodeRef, Reversed, Topo, VisitMap, Visitable, Walker,
+    DfsPostOrder, EdgeRef, GraphBase, GraphRef, IntoEdgeReferences, IntoEdges, IntoEdgesDirected,
+    IntoNeighbors, IntoNeighborsDirected, IntoNodeIdentifiers, IntoNodeReferences, NodeRef,
+    VisitMap, Visitable, Walker,
 };
 use petgraph::EdgeDirection::{Incoming, Outgoing};
 use std::collections::HashSet;
@@ -78,11 +79,16 @@ impl Renderer {
         Ok(())
     }
 
-    pub fn render(&self, filename: String, values: &StableGraph<&Node, f64>, first: NodeIndex) {
-        let heuristic: HashSet<_> = DfsPostOrder::new(&values, first)
-            .iter(&values)
-            .tuple_windows()
-            .filter_map(|(target, source)| values.find_edge(source, target))
+    pub fn render(
+        &self,
+        filename: String,
+        values: &StableGraph<&Node, f64>,
+        first: NodeIndex,
+        last: NodeIndex,
+    ) {
+        let heuristic: HashSet<_> = heuristic_path(values, first, last)
+            .into_iter()
+            .map(|e| e.id())
             .collect();
 
         let graph = values.filter_map(
