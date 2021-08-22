@@ -63,13 +63,13 @@ pub fn heuristic_path<'g>(
     DfsPostOrder::new(&values, first)
         .iter(&values)
         .for_each(|n| {
-            let last_bits = values[n].bits;
+            let n_bits = values[n].bits;
             if let Some(state) = values
                 .edges(n)
                 .filter_map(|e| {
                     states.get(&e.target()).map(|next| State {
                         edge: Some(e),
-                        bits: last_bits + next.bits,
+                        bits: n_bits + next.bits,
                         weight: values[e.id()] + next.weight,
                     })
                 })

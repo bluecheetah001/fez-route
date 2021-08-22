@@ -1,6 +1,6 @@
 use itertools::Itertools;
 use log::*;
-use petgraph::stable_graph::{NodeIndex, StableGraph};
+use petgraph::graph::{Graph, NodeIndex};
 use serde::Deserialize;
 use std::fs::File;
 use std::io::Read;
@@ -8,21 +8,22 @@ use std::path::Path;
 
 /*
 
-80 frames to open a door
-60 frames to open a secret
-370 frames to lesser warp (not including a long load)
-+40 frames to enter a hole
-+140 frames to long load, not added yet
-+230 frames to far load
-268 frames to use well (including long load)
-150 frames to open any chest
-70 frames to spawn an anti
-48 frames to collect any cube (avg 6 per bit)
-170 frames to activate fork
-200 frames to explode bomb, ignoring
+160 frames to open a door
+120 frames to open a secret
++690 frames to warp (not including long load)
++80 frames to enter a hole
++290 frames to long load, not added yet
++460 frames to far load
+240 frames to use well (not including long load)
+300 frames to open any chest
+135 frames to spawn an anti
+96 frames to collect any cube (avg 12 per bit)
+320 frames to activate fork (including rotates)
 
-15 frames to rotate
-6ish frames per tile in both xz and y (12 for out and back)
+30  frames to rotate
+12ish frames per tile in both xz and y (24 for out and back)
+
+grave dest:
 
 */
 
@@ -112,7 +113,7 @@ pub struct Distance {
     pub dz: f64,
 }
 
-pub fn load(path: impl AsRef<Path>) -> StableGraph<Node, Edge> {
+pub fn load(path: impl AsRef<Path>) -> Graph<Node, Edge> {
     let mut s = String::new();
     File::open(path).unwrap().read_to_string(&mut s).unwrap();
     let mut rooms: Vec<Room> = serde_json::from_str(&s).unwrap();
@@ -175,8 +176,8 @@ fn verify_unique_inner_names(room: &Room) {
         });
 }
 
-fn as_graph(rooms: &mut [Room]) -> StableGraph<Node, Edge> {
-    let mut graph = StableGraph::new();
+fn as_graph(rooms: &mut [Room]) -> Graph<Node, Edge> {
+    let mut graph = Graph::new();
     rooms
         .iter_mut()
         .for_each(|room| add_room_nodes(&mut graph, room));
@@ -186,7 +187,7 @@ fn as_graph(rooms: &mut [Room]) -> StableGraph<Node, Edge> {
     graph
 }
 
-fn add_room_nodes(graph: &mut StableGraph<Node, Edge>, room: &mut Room) {
+fn add_room_nodes(graph: &mut Graph<Node, Edge>, room: &mut Room) {
     for collectable in &mut room.collectables {
         collectable.index = graph.add_node(Node {
             name: format!("{}.{}", room.name, collectable.name),
@@ -211,7 +212,7 @@ fn add_room_nodes(graph: &mut StableGraph<Node, Edge>, room: &mut Room) {
     }
 }
 
-fn add_room_edges(graph: &mut StableGraph<Node, Edge>, rooms: &[Room], room: &Room) {
+fn add_room_edges(graph: &mut Graph<Node, Edge>, rooms: &[Room], room: &Room) {
     for collectable in &room.collectables {
         add_edges(
             graph,
@@ -243,7 +244,7 @@ fn add_room_edges(graph: &mut StableGraph<Node, Edge>, rooms: &[Room], room: &Ro
 }
 
 fn add_edges(
-    graph: &mut StableGraph<Node, Edge>,
+    graph: &mut Graph<Node, Edge>,
     src_i: NodeIndex,
     src_pos: Position,
     room: &Room,
