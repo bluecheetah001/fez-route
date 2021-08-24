@@ -93,10 +93,10 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
     problem.add_exprs(flow_exprs(graph, edges, first_node, last_node));
     problem.add_exprs(capacity_exprs(graph, edges, first_node, last_node));
     problem.add_exprs(dominator_exprs(graph, edges, first_node));
-    // these dont' actually work that well since the 3 cycle can just go in both directions
     problem.add_exprs(no_2_cycles(graph, edges));
     // problem.add_exprs(no_3_cycles(graph, edges));
     problem.add_expr(required_bits_expr(graph, edges, required_bits));
+    problem.add_expr(oneof_expr(graph, edges));
     // problem.add_expr(total_keys_expr(graph, edges));
     // problem.add_exprs(approx_water_lock_exprs(graph, edges));
 
@@ -187,45 +187,33 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
 
         // fn get_heuristic_solution(&mut self, problem: &Prob) -> Option<Solution> {
         //     let value_graph = value_graph(self.graph, problem, self.edges);
-
-        //     let mut visited = value_graph.visit_map();
-        //     let mut stack = Vec::new();
-        //     let mut path: Vec::new();
-        //     stack.push(self.first_node);
-        //     while let Some(next) = stack.pop() {
-        //         if !visited.is_visited(&next) {
-        //             visited.visit(next);
-        //             value_graph
-        //                 .edges(next)
-        //                 .filter(|e| *e.weight() > EPS)
-        //                 .filter(|e| {
-        //                     value_graph
-        //                         .edges_directed(e.target(), Incoming)
-        //                         .filter(|e| *e.weight() > EPS)
-        //                         .all(|e| visited.is_visited(&e.source()))
-        //                 })
-        //                 .sorted_by(|l, r| l.weight().partial_cmp(r.weight()).unwrap());
-        //         }
+        //     let path = heuristic_path(&value_graph, self.first_node, self.last_node);
+        //     if path
+        //         .into_iter()
+        //         .fold(self.required_bits, |a, e| a - self.graph[e.target()].bits)
+        //         <= 0
+        //     {
+        //         let mut s = Solution::zeros(problem.num_vars());
+        //         path.into_iter().for_each(|e| {
+        //             s[self.edges.get(e.id().index())] = 1.0;
+        //         });
+        //         // info!("heuristic!");
+        //         // TODO track if heuristic is better on my own, new best solution doesn't report heuristic solutions
+        //         Some(s)
+        //     } else {
+        //         // info!("no heuristic");
+        //         None
         //     }
-        //     None
         // }
 
         fn get_branch(&mut self, problem: &Prob) -> Option<(VarRef, Branch)> {
-            fn weight_score(value: f64) -> f64 {
-                (value - 0.5).abs()
-            }
-            fn index_score(index: usize) -> f64 {
-                index as f64 * 0.01
-            }
-
             let value_graph = value_graph(self.graph, problem, self.edges);
 
             heuristic_path(&value_graph, self.first_node, self.last_node)
                 .into_iter()
                 .filter(|e| 1.0 - *e.weight() > EPS)
-                .enumerate()
-                .map(|(i, e)| {
-                    let score = weight_score(*e.weight()) + index_score(i);
+                .map(|e| {
+                    let score = (*e.weight() - 0.5).abs();
                     (e.id(), score)
                 })
                 .min_by(|l, r| l.1.partial_cmp(&r.1).unwrap())
@@ -377,7 +365,7 @@ fn capacity_exprs(
             name: format!("{}/capacity", n.weight().name),
             bounds: Bounds::Upper(1.0),
             terms: graph
-                .edges_directed(n.id(), Outgoing)
+                .edges_directed(n.id(), Incoming)
                 .map(|e| edges.get(e.id().index()) * 1.0)
                 .collect(),
         })
@@ -431,6 +419,10 @@ fn no_2_cycles(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Vec<Expr> {
         .collect()
 }
 
+// TODO this currently says at most 2 edges for each 3 cycle
+// but it would be stronger as at most 2 edges among each set of 3 nodes (6 edges)
+// which would generalize to 3 edges among 4 nodes, 4 edges among 5 nodes ect
+// but still not sure how much such conditions would help
 fn no_3_cycles(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Vec<Expr> {
     graph
         .node_references()
@@ -438,7 +430,6 @@ fn no_3_cycles(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Vec<Expr> {
             let sources = graph
                 .edges_directed(n.id(), Incoming)
                 .filter(move |e| n.id().index() < e.source().index());
-            // TODO StableGraph.edges_directed doesn't implement Clone
             let targets = graph
                 .edges_directed(n.id(), Outgoing)
                 .filter(move |e| n.id().index() < e.target().index());
@@ -479,6 +470,22 @@ fn required_bits_expr(graph: &StableGraph<Node, Edge>, edges: VarRefs, required_
                 graph
                     .edges_directed(n.id(), Incoming)
                     .map(move |e| edges.get(e.id().index()) * n.weight().bits as f64)
+            })
+            .collect(),
+    }
+}
+
+fn oneof_expr(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Expr {
+    Expr {
+        name: "oneof".to_owned(),
+        bounds: Bounds::Upper(1.0),
+        terms: graph
+            .node_references()
+            .filter(|n| n.weight().cost == Some(Cost::Oneof))
+            .flat_map(|n| {
+                graph
+                    .edges_directed(n.id(), Incoming)
+                    .map(|e| edges.get(e.id().index()) * 1.0)
             })
             .collect(),
     }

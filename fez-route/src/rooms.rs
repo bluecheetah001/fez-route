@@ -50,6 +50,9 @@ pub enum Cost {
     Lock,
     Water,
     Secret,
+    // at the moment there is only a single oneof constraint
+    // so this doesn't need an arg
+    Oneof,
 }
 
 #[derive(Deserialize, Debug, Clone)]
