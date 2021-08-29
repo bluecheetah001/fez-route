@@ -42,7 +42,7 @@ fn main() {
         return true;
     });
 
-    opt::optimize(&graph.into(), 16 * 8);
+    opt::optimize(&graph.into(), 30 * 8);
 }
 
 #[test]

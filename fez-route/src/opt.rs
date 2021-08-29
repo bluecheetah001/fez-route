@@ -88,6 +88,7 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
     // vars
     // if an edge should be taken
     let edges = problem.add_vars(edge_vars(graph));
+    // let keys = problem.add_vars(key_vars(graph));
 
     // exprs
     problem.add_exprs(flow_exprs(graph, edges, first_node, last_node));
@@ -97,7 +98,8 @@ pub fn optimize(graph: &StableGraph<Node, Edge>, required_bits: i32) {
     // problem.add_exprs(no_3_cycles(graph, edges));
     problem.add_expr(required_bits_expr(graph, edges, required_bits));
     problem.add_expr(oneof_expr(graph, edges));
-    // problem.add_expr(total_keys_expr(graph, edges));
+    problem.add_expr(total_keys_expr(graph, edges));
+    // problem.add_exprs(order_keys_exprs(graph, edges, keys));
     // problem.add_exprs(approx_water_lock_exprs(graph, edges));
 
     info!("built problem");
@@ -322,6 +324,18 @@ fn edge_vars(graph: &StableGraph<Node, Edge>) -> Vec<Var> {
         .collect()
 }
 
+fn key_vars(graph: &StableGraph<Node, Edge>) -> Vec<Var> {
+    graph
+        .node_references()
+        .map(|n| Var {
+            name: format!("{}/keys", n.weight().name),
+            kind: Kind::Float,
+            bounds: Bounds::Lower(0.0),
+            objective: 0.0,
+        })
+        .collect()
+}
+
 fn flow_exprs(
     graph: &StableGraph<Node, Edge>,
     edges: VarRefs,
@@ -505,6 +519,34 @@ fn total_keys_expr(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Expr {
             })
             .collect(),
     }
+}
+
+fn order_keys_exprs(
+    graph: &StableGraph<Node, Edge>,
+    edges: VarRefs,
+    keys: VarRefs,
+    first: NodeIndex,
+) -> Vec<Expr> {
+    let total_keys: i32 = graph.node_weights().map(|n| n.keys).sum();
+    // next <= prev + next_keys + total*(1-edge)
+    // next <= prev + next_keys + total - total*edge
+    // next - prev + total*edge <= total + next_keys
+    graph
+        .edge_references()
+        .map(|e| Expr {
+            name: format!(
+                "{}/to/{}/keys",
+                graph[e.source()].name,
+                graph[e.target()].name
+            ),
+            terms: vec![
+                keys.get(e.target().index()) * 1.0,
+                keys.get(e.source().index()) * -1.0,
+                edges.get(e.id().index()) * total_keys as f64,
+            ],
+            bounds: Bounds::Upper((total_keys + graph[e.target()].keys_minus_lock()) as f64),
+        })
+        .collect()
 }
 
 // fn approx_water_lock_exprs(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Vec<Expr> {
