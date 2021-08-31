@@ -20,19 +20,11 @@ const RENDER_CUT: i32 = i32::MAX;
 const TRACE_BRANCH: i32 = 100;
 const RENDER_BRANCH: i32 = 100;
 
-impl Edge {
-    fn get_frames(&self) -> f64 {
-        let dist = self.time;
-        let xz_frames = dist.dx.min(dist.dz) * 6.0;
-        let y_frames = dist.dy * 6.0;
-        xz_frames.max(y_frames)
-    }
-}
 impl Node {
     fn keys_minus_lock(&self) -> i32 {
         self.keys
             + match self.cost {
-                Some(Cost::Lock) => -1,
+                Cost::Lock => -1,
                 _ => 0,
             }
     }
@@ -318,7 +310,7 @@ fn edge_vars(graph: &StableGraph<Node, Edge>) -> Vec<Var> {
                 name: format!("{}/to/{}", source.name, target.name),
                 kind: Kind::Int,
                 bounds: Bounds::Double(0.0, 1.0),
-                objective: edge.get_frames() + target.time,
+                objective: edge.time + target.time,
             }
         })
         .collect()
@@ -391,7 +383,7 @@ fn dominator_exprs(
     edges: VarRefs,
     first_node: NodeIndex,
 ) -> Vec<Expr> {
-    let no_secret_doors = EdgeFiltered::from_fn(graph, |e| e.weight().cost != Some(Cost::Secret));
+    let no_secret_doors = EdgeFiltered::from_fn(graph, |e| graph[e.target()].cost != Cost::Secret);
     let dominators = dominators::simple_fast(&no_secret_doors, first_node);
     graph
         .node_references()
@@ -495,7 +487,7 @@ fn oneof_expr(graph: &StableGraph<Node, Edge>, edges: VarRefs) -> Expr {
         bounds: Bounds::Upper(1.0),
         terms: graph
             .node_references()
-            .filter(|n| n.weight().cost == Some(Cost::Oneof))
+            .filter(|n| n.weight().cost == Cost::Oneof)
             .flat_map(|n| {
                 graph
                     .edges_directed(n.id(), Incoming)

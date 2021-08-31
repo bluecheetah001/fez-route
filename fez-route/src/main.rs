@@ -16,7 +16,7 @@ fn main() {
         let target = g[target].name.as_str();
 
         // the only edge were we definately don't have a key
-        if source == "gomez_house.start.villageville_3d" && target == "villageville_3d.boileroom" {
+        if source == "villageville_3d.start" && target == "villageville_3d.boileroom" {
             return false;
         }
 
@@ -25,14 +25,14 @@ fn main() {
             "lighthouse.anti",
             "lighthouse.bit_1",
             "lighthouse.zu_fork",
-            "lighthouse_house_a.door.lighthouse",
-            "nature_hub.door.lighthouse",
+            "lighthouse_house_a.lighthouse",
+            "nature_hub.lighthouse",
         ]
         .contains(&source)
             && [
                 "lighthouse.bit_2",
-                "lighthouse.door.lighthouse_spin",
-                "lighthouse.door.water_tower",
+                "lighthouse.lighthouse_spin",
+                "lighthouse.water_tower",
             ]
             .contains(&target)
         {

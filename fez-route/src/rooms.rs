@@ -1,6 +1,7 @@
 use itertools::Itertools;
 use log::*;
 use petgraph::graph::{Graph, NodeIndex};
+use serde::de::{Unexpected, Visitor};
 use serde::Deserialize;
 use std::fs::File;
 use std::io::Read;
@@ -27,6 +28,12 @@ grave dest:
 
 */
 
+#[derive(Deserialize, Debug, Default, Clone)]
+struct Room<'a> {
+    name: &'a str,
+    nodes: Vec<RoomNode<'a>>,
+}
+
 #[derive(Deserialize, Debug, Copy, Clone)]
 #[serde(rename_all = "lowercase")]
 enum Orientation {
@@ -44,9 +51,61 @@ struct Position {
     orientation: Option<Orientation>,
 }
 
+#[derive(Debug, Copy, Clone)]
+enum RoomTime {
+    Unknown,
+    Src,
+    Start,
+    End,
+    Time(f64),
+}
+impl Default for RoomTime {
+    fn default() -> Self {
+        Self::Unknown
+    }
+}
+impl<'de> Deserialize<'de> for RoomTime {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct RoomTimeVisitor;
+        impl<'de> Visitor<'de> for RoomTimeVisitor {
+            type Value = RoomTime;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                write!(formatter, "a number or oneof \"src\", \"start\", \"end\"")
+            }
+
+            fn visit_u64<E: serde::de::Error>(self, v: u64) -> Result<Self::Value, E> {
+                self.visit_f64(v as f64)
+            }
+
+            fn visit_i64<E: serde::de::Error>(self, v: i64) -> Result<Self::Value, E> {
+                self.visit_f64(v as f64)
+            }
+
+            fn visit_f64<E: serde::de::Error>(self, v: f64) -> Result<Self::Value, E> {
+                Ok(RoomTime::Time(v))
+            }
+
+            fn visit_str<E: serde::de::Error>(self, v: &str) -> Result<Self::Value, E> {
+                match v {
+                    "src" => Ok(RoomTime::Src),
+                    "start" => Ok(RoomTime::Start),
+                    "end" => Ok(RoomTime::End),
+                    _ => Err(E::invalid_value(
+                        Unexpected::Str(v),
+                        &"oneof \"src\", \"start\", \"end\"",
+                    )),
+                }
+            }
+        }
+        deserializer.deserialize_any(RoomTimeVisitor)
+    }
+}
+
 #[derive(Deserialize, Debug, Copy, Clone, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
 pub enum Cost {
+    Free,
     Lock,
     Water,
     Secret,
@@ -54,10 +113,17 @@ pub enum Cost {
     // so this doesn't need an arg
     Oneof,
 }
+impl Default for Cost {
+    fn default() -> Self {
+        Self::Free
+    }
+}
 
 #[derive(Deserialize, Debug, Clone)]
-struct Collectable<'a> {
+struct RoomNode<'a> {
     name: &'a str,
+    to: Option<&'a str>,
+    // at: &'a str,
     position: Position,
     #[serde(default)]
     bit: i32,
@@ -67,46 +133,50 @@ struct Collectable<'a> {
     anti: i32,
     #[serde(default)]
     key: i32,
-    time: f64,
-    cost: Option<Cost>,
+    #[serde(default)]
+    time: RoomTime,
+    #[serde(default)]
+    cost: Cost,
     #[serde(skip, default = "NodeIndex::end")]
     index: NodeIndex,
 }
-
-#[derive(Deserialize, Debug, Clone)]
-struct Door<'a> {
-    to: Option<&'a str>,
-    name: &'a str,
-    position: Position,
-    time: Option<f64>,
-    cost: Option<Cost>,
-    #[serde(skip, default = "NodeIndex::end")]
-    index: NodeIndex,
-}
-
-#[derive(Deserialize, Debug, Default, Clone)]
-struct Room<'a> {
-    name: &'a str,
-    collectables: Vec<Collectable<'a>>,
-    doors: Vec<Door<'a>>,
+impl RoomNode<'_> {
+    fn is_actual(&self) -> bool {
+        !matches!(self.time, RoomTime::Src)
+    }
+    fn is_source(&self) -> bool {
+        !matches!(self.time, RoomTime::Src | RoomTime::End)
+    }
+    fn is_target(&self) -> bool {
+        !matches!(self.time, RoomTime::Src | RoomTime::Start)
+    }
+    fn get_time(&self) -> f64 {
+        match self.time {
+            // TODO we need something, so for now assume the time to go through a hole
+            // all collectables should have an actual time
+            RoomTime::Unknown => 80.0,
+            RoomTime::Time(time) => time,
+            _ => 0.0,
+        }
+    }
+    fn get_bits(&self) -> i32 {
+        self.bit + self.cube * 8 + self.anti * 8
+    }
 }
 
 #[derive(Debug, Clone)]
 pub struct Node {
-    /// {room}.{name}.{to} for doors
-    /// .{name}.{to} for dest
-    /// {room}.{name} for collectables
+    /// {room}.{name}
     pub name: String,
     pub bits: i32,
     pub keys: i32,
-    pub cost: Option<Cost>,
+    pub cost: Cost,
     pub time: f64,
 }
 
 #[derive(Debug, Clone)]
 pub struct Edge {
-    pub time: Distance,
-    pub cost: Option<Cost>,
+    pub time: f64,
 }
 
 #[derive(Debug, Copy, Clone)]
@@ -138,45 +208,11 @@ fn verify_unique_room_names(rooms: &[Room]) {
 }
 
 fn verify_unique_inner_names(room: &Room) {
-    room.collectables
-        .iter()
-        .tuple_combinations()
-        .for_each(|(a, b)| {
-            if a.name == b.name {
-                warn!(
-                    "multiple definitions for collectable {}.{}",
-                    room.name, a.name
-                );
-            }
-        });
-    room.doors.iter().tuple_combinations().for_each(|(a, b)| {
+    room.nodes.iter().tuple_combinations().for_each(|(a, b)| {
         if a.name == b.name {
-            match (a.to.as_ref(), b.to.as_ref()) {
-                (Some(a_to), Some(b_to)) => {
-                    if a_to == b_to {
-                        warn!(
-                            "multiple definitions for door {}.{}.{}",
-                            room.name, a.name, a_to
-                        );
-                    }
-                }
-                (None, None) => {
-                    warn!("multiple definitions for dest {}.{}", room.name, a.name);
-                }
-                // dests are used preferentially to doors
-                _ => {}
-            }
+            warn!("multiple definitions for node {}.{}", room.name, a.name);
         }
     });
-    room.doors
-        .iter()
-        .filter(|door| door.to.is_none())
-        .cartesian_product(room.collectables.iter())
-        .for_each(|(dest, collectable)| {
-            if dest.name == collectable.name {
-                warn!("collectable {}.{} is also a dest", room.name, dest.name);
-            }
-        });
 }
 
 fn as_graph(rooms: &mut [Room]) -> Graph<Node, Edge> {
@@ -184,97 +220,128 @@ fn as_graph(rooms: &mut [Room]) -> Graph<Node, Edge> {
     rooms
         .iter_mut()
         .for_each(|room| add_room_nodes(&mut graph, room));
+    let global = global_timing(rooms);
     rooms
         .iter()
-        .for_each(|room| add_room_edges(&mut graph, rooms, room));
+        .for_each(|room| add_room_edges(&mut graph, rooms, room, &room_timing(room, &global)));
     graph
 }
 
 fn add_room_nodes(graph: &mut Graph<Node, Edge>, room: &mut Room) {
-    for collectable in &mut room.collectables {
-        collectable.index = graph.add_node(Node {
-            name: format!("{}.{}", room.name, collectable.name),
-            bits: collectable.bit + (collectable.cube + collectable.anti) * 8,
-            keys: collectable.key,
-            cost: collectable.cost,
-            time: collectable.time,
+    let room_name = room.name;
+    room.nodes
+        .iter_mut()
+        .filter(|node| node.is_actual())
+        .for_each(|node| {
+            node.index = graph.add_node(Node {
+                name: format!("{}.{}", room_name, node.name),
+                bits: node.get_bits(),
+                keys: node.key,
+                cost: node.cost,
+                time: node.get_time(),
+            })
         });
-    }
-    for door in &mut room.doors {
-        if let Some(to) = door.to {
-            door.index = graph.add_node(Node {
-                name: format!("{}.{}.{}", room.name, door.name, to),
-                bits: 0,
-                keys: 0,
-                cost: door.cost,
-                // TODO this is not accurate, maybe could infer some based on cost and/or name
-                //      but really just need to check them all
-                time: door.time.unwrap_or(40.0),
-            });
-        }
-    }
 }
 
-fn add_room_edges(graph: &mut Graph<Node, Edge>, rooms: &[Room], room: &Room) {
-    for collectable in &room.collectables {
-        add_edges(
-            graph,
-            collectable.index,
-            collectable.position,
-            room,
-            collectable.index,
-        );
-    }
-    for door in &room.doors {
-        if let Some(to) = door.to {
-            if let Some(to) = rooms.iter().find(|&room| room.name == to) {
-                if let Some(rev) = to
-                    .doors
-                    .iter()
-                    .filter(|&rev| rev.name == door.name)
-                    .filter(|&rev| rev.to.map_or(true, |rev_to| rev_to == room.name))
-                    .min_by_key(|&rev| rev.to.is_some())
-                {
-                    add_edges(graph, door.index, rev.position, to, rev.index);
-                } else {
-                    warn!("no dest door for {}.{}.{}", room.name, door.name, to.name)
-                }
-            } else {
-                warn!("no dest room for {}.{}.{}", room.name, door.name, to)
+fn add_room_edges(graph: &mut Graph<Node, Edge>, rooms: &[Room], room: &Room, timing: &Timing) {
+    room.nodes
+        .iter()
+        .filter(|node| node.is_source())
+        .for_each(|source| {
+            let to_name = source.to.unwrap_or(source.name);
+            let to = rooms.iter().find(|r| r.name == to_name);
+            if source.to.is_some() && to.is_none() {
+                panic!(
+                    "failed to find room {} for door {}.{}",
+                    to_name, room.name, source.name
+                );
             }
-        }
-    }
+            if let Some(to) = to {
+                let at_name = if source.to.is_some() {
+                    source.name
+                } else {
+                    room.name
+                };
+                let at = to
+                    .nodes
+                    .iter()
+                    .find(|n| n.name == at_name)
+                    .unwrap_or_else(|| {
+                        panic!(
+                            "failed to find node {}.{} for door {}.{}",
+                            to.name, at_name, room.name, source.name
+                        );
+                    });
+                add_edges(
+                    graph,
+                    source.index,
+                    at.name,
+                    at.position,
+                    to,
+                    at.index,
+                    timing,
+                );
+            } else {
+                add_edges(
+                    graph,
+                    source.index,
+                    source.name,
+                    source.position,
+                    room,
+                    source.index,
+                    timing,
+                );
+            }
+        });
 }
 
-fn add_edges(
+fn add_edges<'a>(
     graph: &mut Graph<Node, Edge>,
     src_i: NodeIndex,
+    src_name: &'a str,
     src_pos: Position,
     room: &Room,
     exclude: NodeIndex,
+    timing: &Timing,
 ) {
-    room.collectables
+    room.nodes
         .iter()
-        .map(|c| (c.index, c.position, c.cost))
-        .chain(
-            room.doors
-                .iter()
-                .filter(|&d| d.to.is_some())
-                .map(|d| (d.index, d.position, d.cost)),
-        )
-        .filter(|&(i, _, _)| i != exclude)
-        .for_each(|(dest_i, dest_pos, cost)| {
+        .filter(|node| node.is_target())
+        .filter(|node| node.index != exclude)
+        .for_each(|target| {
             graph.add_edge(
                 src_i,
-                dest_i,
+                target.index,
                 Edge {
-                    time: Distance {
-                        dx: dest_pos.x - src_pos.x,
-                        dy: dest_pos.y - src_pos.y,
-                        dz: dest_pos.z - src_pos.z,
-                    },
-                    cost,
+                    time: timing.get(src_name, src_pos, target.name, target.position),
                 },
             );
-        })
+        });
+}
+
+struct GlobalTiming {}
+
+struct Timing {}
+
+fn global_timing(rooms: &[Room]) -> GlobalTiming {
+    GlobalTiming {}
+}
+
+fn room_timing(room: &Room, global: &GlobalTiming) -> Timing {
+    Timing {}
+}
+
+impl Timing {
+    fn get(
+        &self,
+        src_name: &str,
+        src_pos: Position,
+        target_name: &str,
+        target_pos: Position,
+    ) -> f64 {
+        let dx = (src_pos.x - target_pos.x).abs();
+        let dy = (src_pos.y - target_pos.y).abs();
+        let dz = (src_pos.z - target_pos.z).abs();
+        (dx.min(dz) + dy) * 12.0
+    }
 }

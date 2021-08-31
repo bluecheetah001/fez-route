@@ -1,7 +1,7 @@
 [
   {
     "name": "ancient_walls",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -42,12 +42,9 @@
           "z": 23.5
         },
         "time": 1629
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "bell_tower",
+        "name": "bell_tower",
         "position": {
           "orientation": "right",
           "x": 33.5,
@@ -57,8 +54,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "wall_hole",
+        "name": "wall_hole",
         "position": {
           "orientation": "left",
           "x": 36.5,
@@ -71,7 +67,7 @@
   },
   {
     "name": "arch",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -121,12 +117,9 @@
           "z": 32
         },
         "time": 300
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "five_towers",
+        "name": "five_towers",
         "position": {
           "orientation": "front",
           "x": 3.5,
@@ -136,8 +129,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "nature_hub",
+        "name": "nature_hub",
         "position": {
           "orientation": "back",
           "x": 14.5,
@@ -147,8 +139,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "weightswitch_temple",
+        "name": "weightswitch_temple",
         "position": {
           "orientation": "right",
           "x": 20.375,
@@ -161,7 +152,7 @@
   },
   {
     "name": "bell_tower",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -181,12 +172,9 @@
           "z": 21
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "nature_hub",
+        "name": "nature_hub",
         "position": {
           "orientation": "back",
           "x": 14.5,
@@ -196,8 +184,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "quantum",
+        "name": "quantum",
         "position": {
           "orientation": "back",
           "x": 18.5,
@@ -206,8 +193,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "ancient_walls",
+        "name": "ancient_walls",
         "position": {
           "orientation": "right",
           "x": 19.5,
@@ -232,11 +218,9 @@
   },
   {
     "name": "big_tower",
-    "collectables": [],
-    "doors": [
+    "nodes": [
       {
-        "name": "door",
-        "to": "villageville_3d",
+        "name": "villageville_3d",
         "position": {
           "orientation": "right",
           "x": 30,
@@ -245,8 +229,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "memory_core",
+        "name": "memory_core",
         "position": {
           "orientation": "front",
           "x": 24,
@@ -258,11 +241,9 @@
   },
   {
     "name": "cabin_interior",
-    "collectables": [],
-    "doors": [
+    "nodes": [
       {
-        "name": "door",
-        "to": "tree",
+        "name": "tree",
         "position": {
           "orientation": "right",
           "x": 7,
@@ -271,8 +252,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "grave_cabin",
+        "name": "grave_cabin",
         "position": {
           "orientation": "right",
           "x": 7,
@@ -284,7 +264,7 @@
   },
   {
     "name": "clock",
-    "collectables": [
+    "nodes": [
       {
         "name": "cube",
         "cube": 1,
@@ -294,12 +274,9 @@
           "z": 35
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "zu_city_ruins",
+        "name": "zu_city_ruins",
         "position": {
           "orientation": "back",
           "x": 39.5,
@@ -309,8 +286,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "zu_library",
+        "name": "zu_library",
         "position": {
           "orientation": "right",
           "x": 45.5,
@@ -320,7 +296,7 @@
         "time": 700
       },
       {
-        "name": "warp_right",
+        "name": "lesser_gate",
         "to": "zu_city_ruins",
         "position": {
           "x": 41.5,
@@ -333,7 +309,7 @@
   },
   {
     "name": "cmy",
-    "collectables": [
+    "nodes": [
       {
         "name": "cmy_fork",
         "anti": 1,
@@ -344,12 +320,9 @@
           "z": 12.5
         },
         "time": 648
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "waterfall",
+        "name": "waterfall",
         "position": {
           "orientation": "back",
           "x": 9.5,
@@ -358,8 +331,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "cmy_b",
+        "name": "cmy_b",
         "position": {
           "orientation": "front",
           "x": 3.5,
@@ -371,7 +343,7 @@
   },
   {
     "name": "cmy_b",
-    "collectables": [
+    "nodes": [
       {
         "name": "anti",
         "anti": 1,
@@ -381,12 +353,9 @@
           "z": 11
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "cmy",
+        "name": "cmy",
         "position": {
           "orientation": "left",
           "x": 12.5,
@@ -395,7 +364,7 @@
         }
       },
       {
-        "name": "warp_back",
+        "name": "lesser_gate",
         "to": "nature_hub",
         "position": {
           "x": 14.5,
@@ -408,7 +377,7 @@
   },
   {
     "name": "five_towers",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -448,12 +417,9 @@
           "z": 19
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "arch",
+        "name": "arch",
         "position": {
           "orientation": "right",
           "x": 33.5,
@@ -475,7 +441,7 @@
         "cost": "secret"
       },
       {
-        "name": "warp_back",
+        "name": "lesser_gate",
         "to": "nature_hub",
         "position": {
           "x": 45.5,
@@ -488,7 +454,7 @@
   },
   {
     "name": "fractal",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -529,12 +495,9 @@
           "z": 22.5
         },
         "time": 2143
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "two_walls",
+        "name": "two_walls",
         "position": {
           "orientation": "back",
           "x": 34.5,
@@ -545,24 +508,8 @@
     ]
   },
   {
-    "name": "gomez_house",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "start",
-        "to": "villageville_3d",
-        "position": {
-          "orientation": "right",
-          "x": 7.5,
-          "y": 7,
-          "z": 12.5
-        }
-      }
-    ]
-  },
-  {
     "name": "graveyard_a",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -592,12 +539,9 @@
           "z": 12.5
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "grave_lesser_gate",
+        "name": "grave_lesser_gate",
         "position": {
           "orientation": "front",
           "x": 37,
@@ -607,8 +551,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "grave_treasure_a",
+        "name": "grave_treasure_a",
         "position": {
           "orientation": "left",
           "x": 15.5,
@@ -618,8 +561,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "mausoleum",
+        "name": "mausoleum",
         "position": {
           "orientation": "right",
           "x": 27.5,
@@ -632,7 +574,7 @@
   },
   {
     "name": "graveyard_gate",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -713,12 +655,9 @@
           "z": 17
         },
         "time": 926
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "grave_cabin",
+        "name": "grave_cabin",
         "position": {
           "orientation": "front",
           "x": 38,
@@ -727,8 +666,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "skull",
+        "name": "skull",
         "position": {
           "orientation": "front",
           "x": 25,
@@ -738,8 +676,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "mausoleum",
+        "name": "mausoleum",
         "position": {
           "orientation": "left",
           "x": 10,
@@ -749,8 +686,17 @@
         "time": 700
       },
       {
-        "name": "warp_right",
-        "to": "nature_hub",
+        "name": "lesser_gate",
+        "position": {
+          "orientation": "front",
+          "x": 25,
+          "y": 38,
+          "z": 22
+        },
+        "time": "src"
+      },
+      {
+        "name": "nature_hub",
         "position": {
           "orientation": "front",
           "x": 25,
@@ -758,48 +704,12 @@
           "z": 20
         },
         "time": 690
-      },
-      {
-        "name": "warp_front",
-        "position": {
-          "orientation": "front",
-          "x": 25,
-          "y": 38,
-          "z": 22
-        }
-      },
-      {
-        "name": "warp_right",
-        "position": {
-          "orientation": "right",
-          "x": 27,
-          "y": 38,
-          "z": 20
-        }
-      },
-      {
-        "name": "warp_back",
-        "position": {
-          "orientation": "back",
-          "x": 25,
-          "y": 38,
-          "z": 18
-        }
-      },
-      {
-        "name": "warp_left",
-        "position": {
-          "orientation": "left",
-          "x": 23,
-          "y": 38,
-          "z": 20
-        }
       }
     ]
   },
   {
     "name": "grave_cabin",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -819,12 +729,9 @@
           "z": 37
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "cabin_interior",
+        "name": "cabin_interior",
         "position": {
           "orientation": "front",
           "x": 27.5,
@@ -833,8 +740,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "graveyard_gate",
+        "name": "graveyard_gate",
         "position": {
           "orientation": "right",
           "x": 16.5,
@@ -847,7 +753,7 @@
   },
   {
     "name": "grave_ghost",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -867,12 +773,9 @@
           "z": 12
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "mausoleum",
+        "name": "mausoleum",
         "position": {
           "orientation": "right",
           "x": 15.5,
@@ -885,7 +788,7 @@
   },
   {
     "name": "grave_lesser_gate",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -905,12 +808,9 @@
           "z": 13.5
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "graveyard_a",
+        "name": "graveyard_a",
         "position": {
           "orientation": "front",
           "x": 18,
@@ -920,7 +820,7 @@
         "time": 540
       },
       {
-        "name": "warp_front",
+        "name": "lesser_gate",
         "to": "graveyard_gate",
         "position": {
           "x": 18,
@@ -933,7 +833,7 @@
   },
   {
     "name": "grave_treasure_a",
-    "collectables": [
+    "nodes": [
       {
         "name": "cube",
         "cube": 1,
@@ -963,12 +863,9 @@
           "z": 7.5625
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "graveyard_a",
+        "name": "graveyard_a",
         "position": {
           "orientation": "front",
           "x": 10,
@@ -978,7 +875,7 @@
         "time": 540
       },
       {
-        "name": "warp_front",
+        "name": "lesser_gate",
         "to": "graveyard_gate",
         "position": {
           "x": 10,
@@ -991,7 +888,7 @@
   },
   {
     "name": "industrial_city",
-    "collectables": [
+    "nodes": [
       {
         "name": "nuzu_abandoned_a",
         "bit": 1,
@@ -1024,12 +921,9 @@
           "z": 4.5
         },
         "time": 368
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "memory_core",
+        "name": "memory_core",
         "position": {
           "orientation": "left",
           "x": 1.5,
@@ -1041,7 +935,7 @@
   },
   {
     "name": "industrial_hub",
-    "collectables": [
+    "nodes": [
       {
         "name": "indust_abandoned_a",
         "bit": 1,
@@ -1052,12 +946,9 @@
           "z": 37.375
         },
         "time": 476
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "industrial_superspin",
+        "name": "industrial_superspin",
         "position": {
           "orientation": "front",
           "x": 9.5,
@@ -1067,8 +958,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "rails",
+        "name": "rails",
         "position": {
           "orientation": "right",
           "x": 34.5,
@@ -1078,8 +968,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "pivot_one",
+        "name": "pivot_one",
         "position": {
           "orientation": "left",
           "x": 12.5,
@@ -1089,8 +978,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "pivot_watertower",
+        "name": "pivot_watertower",
         "position": {
           "orientation": "back",
           "x": 24.5,
@@ -1099,8 +987,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "nuzu_abandoned_b",
+        "name": "nuzu_abandoned_b",
         "position": {
           "orientation": "back",
           "x": 16.5,
@@ -1110,17 +997,27 @@
       },
       {
         "name": "secret",
+        "to": "well_2",
         "position": {
           "orientation": "back",
           "x": 10.5,
           "y": 57,
           "z": 10.5
         },
-        "time": 200
+        "time": "src"
       },
       {
-        "name": "warp_left",
-        "to": "nature_hub",
+        "name": "lesser_gate",
+        "position": {
+          "orientation": "back",
+          "x": 31.0625,
+          "y": 74,
+          "z": 30
+        },
+        "time": "src"
+      },
+      {
+        "name": "nature_hub",
         "position": {
           "orientation": "front",
           "x": 31.0625,
@@ -1130,46 +1027,20 @@
         "time": 690
       },
       {
-        "name": "warp_front",
-        "position": {
-          "orientation": "front",
-          "x": 31.0625,
-          "y": 74,
-          "z": 34
-        }
-      },
-      {
-        "name": "warp_right",
-        "position": {
-          "orientation": "right",
-          "x": 33.0625,
-          "y": 74,
-          "z": 32
-        }
-      },
-      {
-        "name": "warp_back",
+        "name": "sewer_hub",
         "position": {
           "orientation": "back",
           "x": 31.0625,
           "y": 74,
           "z": 30
-        }
-      },
-      {
-        "name": "warp_left",
-        "position": {
-          "orientation": "left",
-          "x": 29.0625,
-          "y": 74,
-          "z": 32
-        }
+        },
+        "time": "src"
       }
     ]
   },
   {
     "name": "industrial_superspin",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -1199,12 +1070,9 @@
           "z": 9
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "industrial_hub",
+        "name": "industrial_hub",
         "position": {
           "orientation": "right",
           "x": 8.5,
@@ -1214,8 +1082,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "superspin_cave",
+        "name": "superspin_cave",
         "position": {
           "orientation": "right",
           "x": 30.5,
@@ -1227,7 +1094,7 @@
   },
   {
     "name": "lighthouse",
-    "collectables": [
+    "nodes": [
       {
         "name": "anti",
         "anti": 1,
@@ -1269,12 +1136,9 @@
         },
         "time": 796,
         "cost": "water"
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "lighthouse_house_a",
+        "name": "lighthouse_house_a",
         "position": {
           "orientation": "back",
           "x": 21.5,
@@ -1284,8 +1148,7 @@
         "cost": "lock"
       },
       {
-        "name": "door",
-        "to": "lighthouse_spin",
+        "name": "lighthouse_spin",
         "position": {
           "orientation": "right",
           "x": 25,
@@ -1294,8 +1157,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "nature_hub",
+        "name": "nature_hub",
         "position": {
           "orientation": "front",
           "x": 7.5,
@@ -1305,8 +1167,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "water_tower",
+        "name": "water_tower",
         "position": {
           "orientation": "left",
           "x": 4.5,
@@ -1319,7 +1180,7 @@
   },
   {
     "name": "lighthouse_house_a",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -1329,12 +1190,9 @@
           "z": 4
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "lighthouse",
+        "name": "lighthouse",
         "position": {
           "orientation": "front",
           "x": 7.5,
@@ -1343,8 +1201,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "lighthouse_spin",
+        "name": "lighthouse_spin",
         "position": {
           "orientation": "back",
           "x": 7.5,
@@ -1356,7 +1213,7 @@
   },
   {
     "name": "lighthouse_spin",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -1366,12 +1223,9 @@
           "z": 15
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "lighthouse_house_a",
+        "name": "lighthouse_house_a",
         "position": {
           "orientation": "back",
           "x": 10.5,
@@ -1380,8 +1234,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "lighthouse",
+        "name": "lighthouse",
         "position": {
           "orientation": "front",
           "x": 10.5,
@@ -1393,7 +1246,7 @@
   },
   {
     "name": "mausoleum",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -1433,12 +1286,9 @@
           "z": 11
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "graveyard_a",
+        "name": "graveyard_a",
         "position": {
           "orientation": "left",
           "x": 3.5,
@@ -1448,8 +1298,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "graveyard_gate",
+        "name": "graveyard_gate",
         "position": {
           "orientation": "back",
           "x": 21.5,
@@ -1459,8 +1308,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "grave_ghost",
+        "name": "grave_ghost",
         "position": {
           "orientation": "right",
           "x": 32.5,
@@ -1484,11 +1332,9 @@
   },
   {
     "name": "memory_core",
-    "collectables": [],
-    "doors": [
+    "nodes": [
       {
-        "name": "door",
-        "to": "big_tower",
+        "name": "big_tower",
         "position": {
           "orientation": "front",
           "x": 18,
@@ -1497,8 +1343,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "nature_hub",
+        "name": "nature_hub",
         "position": {
           "orientation": "front",
           "x": 18,
@@ -1508,8 +1353,7 @@
         "time": 1306
       },
       {
-        "name": "door",
-        "to": "wall_village",
+        "name": "wall_village",
         "position": {
           "orientation": "right",
           "x": 21.5,
@@ -1518,8 +1362,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "industrial_city",
+        "name": "industrial_city",
         "position": {
           "orientation": "back",
           "x": 18,
@@ -1529,8 +1372,7 @@
         "time": 1256
       },
       {
-        "name": "door",
-        "to": "zu_city",
+        "name": "zu_city",
         "position": {
           "orientation": "left",
           "x": 14.5,
@@ -1541,19 +1383,20 @@
       },
       {
         "name": "secret",
+        "to": "pivot_water_tower",
         "position": {
           "orientation": "left",
           "x": 17.5,
           "y": 48,
           "z": 24.5
         },
-        "time": 200
+        "time": "src"
       }
     ]
   },
   {
     "name": "mine_a",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -1563,12 +1406,9 @@
           "z": 25.5
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "waterfall",
+        "name": "waterfall",
         "position": {
           "orientation": "right",
           "x": 23.5,
@@ -1577,8 +1417,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "mine_wrap",
+        "name": "mine_wrap",
         "position": {
           "orientation": "front",
           "x": 19,
@@ -1590,7 +1429,7 @@
   },
   {
     "name": "mine_bomb_pillar",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -1610,12 +1449,9 @@
           "z": 18.5
         },
         "time": 300
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "mine_wrap",
+        "name": "mine_wrap",
         "position": {
           "orientation": "front",
           "x": 23.5,
@@ -1627,7 +1463,7 @@
   },
   {
     "name": "mine_wrap",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -1657,12 +1493,9 @@
           "z": 12.5
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "mine_a",
+        "name": "mine_a",
         "position": {
           "orientation": "front",
           "x": 31,
@@ -1671,8 +1504,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "mine_bomb_pillar",
+        "name": "mine_bomb_pillar",
         "position": {
           "orientation": "left",
           "x": 32.5,
@@ -1681,7 +1513,7 @@
         }
       },
       {
-        "name": "warp_back",
+        "name": "lesser_gate",
         "to": "nature_hub",
         "position": {
           "x": 34,
@@ -1694,7 +1526,7 @@
   },
   {
     "name": "nature_hub",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -1714,12 +1546,9 @@
           "z": 22
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "waterfall",
+        "name": "waterfall",
         "position": {
           "orientation": "back",
           "x": 27.5,
@@ -1729,8 +1558,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "lighthouse",
+        "name": "lighthouse",
         "position": {
           "orientation": "front",
           "x": 26.5,
@@ -1740,8 +1568,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "arch",
+        "name": "arch",
         "position": {
           "orientation": "right",
           "x": 15.5,
@@ -1751,8 +1578,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "bell_tower",
+        "name": "bell_tower",
         "position": {
           "orientation": "left",
           "x": 1.5,
@@ -1762,8 +1588,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "memory_core",
+        "name": "memory_core",
         "position": {
           "orientation": "back",
           "x": 12,
@@ -1772,8 +1597,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "tree_roots",
+        "name": "tree_roots",
         "position": {
           "orientation": "back",
           "x": 11.5,
@@ -1783,55 +1607,70 @@
       },
       {
         "name": "secret",
+        "to": "two_walls",
         "position": {
           "orientation": "left",
           "x": 25.5,
           "y": 11,
           "z": 5.5
         },
-        "time": 200
+        "time": "src"
       },
       {
-        "name": "warp_front",
-        "position": {
-          "orientation": "front",
-          "x": 12,
-          "y": 25,
-          "z": 20
-        }
-      },
-      {
-        "name": "warp_right",
-        "position": {
-          "orientation": "right",
-          "x": 14,
-          "y": 25,
-          "z": 18
-        }
-      },
-      {
-        "name": "warp_back",
+        "name": "lesser_gate",
         "position": {
           "orientation": "back",
           "x": 12,
           "y": 25,
           "z": 16
-        }
+        },
+        "time": "src"
       },
       {
-        "name": "warp_left",
+        "name": "zu_city_ruins",
+        "position": {
+          "orientation": "front",
+          "x": 12,
+          "y": 25,
+          "z": 20
+        },
+        "time": "src"
+      },
+      {
+        "name": "graveyard_gate",
+        "position": {
+          "orientation": "right",
+          "x": 14,
+          "y": 25,
+          "z": 18
+        },
+        "time": "src"
+      },
+      {
+        "name": "sewer_hub",
+        "position": {
+          "orientation": "back",
+          "x": 12,
+          "y": 25,
+          "z": 16
+        },
+        "time": "src"
+      },
+      {
+        "name": "industrial_hub",
         "position": {
           "orientation": "left",
           "x": 10,
           "y": 25,
           "z": 18
-        }
+        },
+        "time": "src"
       }
     ]
   },
   {
     "name": "nuzu_abandoned_b",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -1841,12 +1680,9 @@
           "z": 9
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "industrial_hub",
+        "name": "industrial_hub",
         "position": {
           "orientation": "back",
           "x": 7.5,
@@ -1870,7 +1706,7 @@
   },
   {
     "name": "observatory",
-    "collectables": [
+    "nodes": [
       {
         "name": "cube",
         "cube": 1,
@@ -1891,12 +1727,9 @@
           "z": 34.5
         },
         "time": 1007
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "zu_city_ruins",
+        "name": "zu_city_ruins",
         "position": {
           "orientation": "front",
           "x": 43.5,
@@ -1906,8 +1739,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "visitor",
+        "name": "visitor",
         "position": {
           "orientation": "right",
           "x": 53.0625,
@@ -1928,7 +1760,7 @@
         "time": 200
       },
       {
-        "name": "warp_right",
+        "name": "lesser_gate",
         "to": "zu_city_ruins",
         "position": {
           "x": 5.5,
@@ -1941,7 +1773,7 @@
   },
   {
     "name": "pivot_one",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -1971,12 +1803,9 @@
           "z": 33
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "windmill_int",
+        "name": "windmill_int",
         "position": {
           "orientation": "back",
           "x": 26.3125,
@@ -1986,8 +1815,7 @@
         "cost": "lock"
       },
       {
-        "name": "door",
-        "to": "industrial_hub",
+        "name": "industrial_hub",
         "position": {
           "orientation": "back",
           "x": 27.5,
@@ -1997,8 +1825,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "pivot_two",
+        "name": "pivot_two",
         "position": {
           "orientation": "right",
           "x": 30.5,
@@ -2011,7 +1838,7 @@
   },
   {
     "name": "pivot_three",
-    "collectables": [
+    "nodes": [
       {
         "name": "cube",
         "cube": 1,
@@ -2021,12 +1848,9 @@
           "z": 14
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "pivot_two",
+        "name": "pivot_two",
         "position": {
           "orientation": "right",
           "x": 16.5,
@@ -2036,7 +1860,7 @@
         "time": 540
       },
       {
-        "name": "warp_back",
+        "name": "lesser_gate",
         "to": "industrial_hub",
         "position": {
           "x": 14.5,
@@ -2049,7 +1873,7 @@
   },
   {
     "name": "pivot_two",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2090,12 +1914,9 @@
           "z": 32.5
         },
         "time": 1852
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "pivot_three",
+        "name": "pivot_three",
         "position": {
           "orientation": "front",
           "x": 24.5,
@@ -2105,8 +1926,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "pivot_one",
+        "name": "pivot_one",
         "position": {
           "orientation": "back",
           "x": 24.5,
@@ -2119,7 +1939,7 @@
   },
   {
     "name": "pivot_watertower",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2139,12 +1959,9 @@
           "z": 14.5
         },
         "time": 300
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "water_tower",
+        "name": "water_tower",
         "position": {
           "orientation": "right",
           "x": 19.5,
@@ -2153,8 +1970,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "industrial_hub",
+        "name": "industrial_hub",
         "position": {
           "orientation": "back",
           "x": 18.5,
@@ -2177,7 +1993,7 @@
   },
   {
     "name": "purple_lodge_ruin",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2187,12 +2003,9 @@
           "z": 9
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "zu_city_ruins",
+        "name": "zu_city_ruins",
         "position": {
           "orientation": "front",
           "x": 7,
@@ -2216,7 +2029,7 @@
   },
   {
     "name": "quantum",
-    "collectables": [
+    "nodes": [
       {
         "name": "anti",
         "anti": 1,
@@ -2226,12 +2039,9 @@
           "z": 38
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "bell_tower",
+        "name": "bell_tower",
         "position": {
           "orientation": "left",
           "x": 42.5,
@@ -2240,7 +2050,7 @@
         }
       },
       {
-        "name": "warp_back",
+        "name": "lesser_gate",
         "to": "nature_hub",
         "position": {
           "x": 44.5,
@@ -2253,11 +2063,9 @@
   },
   {
     "name": "rails",
-    "collectables": [],
-    "doors": [
+    "nodes": [
       {
-        "name": "door",
-        "to": "well_2",
+        "name": "well_2",
         "position": {
           "orientation": "back",
           "x": 14,
@@ -2268,8 +2076,7 @@
         "cost": "lock"
       },
       {
-        "name": "door",
-        "to": "industrial_hub",
+        "name": "industrial_hub",
         "position": {
           "orientation": "right",
           "x": 16.5,
@@ -2279,8 +2086,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "triple_pivot_cave",
+        "name": "triple_pivot_cave",
         "position": {
           "orientation": "front",
           "x": 22.5,
@@ -2292,7 +2098,7 @@
   },
   {
     "name": "sewer_fork",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2312,12 +2118,9 @@
           "z": 14.5
         },
         "time": 416
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "sewer_pillars",
+        "name": "sewer_pillars",
         "position": {
           "orientation": "front",
           "x": 12.5,
@@ -2340,7 +2143,7 @@
   },
   {
     "name": "sewer_geyser",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2350,12 +2153,9 @@
           "z": 12
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "sewer_pillars",
+        "name": "sewer_pillars",
         "position": {
           "orientation": "right",
           "x": 10.5,
@@ -2364,8 +2164,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "sewer_hub",
+        "name": "sewer_hub",
         "position": {
           "orientation": "front",
           "x": 19.5,
@@ -2377,7 +2176,7 @@
   },
   {
     "name": "sewer_hub",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2408,12 +2207,9 @@
           "z": 8.5
         },
         "time": 812
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "sewer_pivot",
+        "name": "sewer_pivot",
         "position": {
           "orientation": "back",
           "x": 19.5,
@@ -2422,8 +2218,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "sewer_to_lava",
+        "name": "sewer_to_lava",
         "position": {
           "orientation": "right",
           "x": 35.5,
@@ -2432,8 +2227,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "sewer_geyser",
+        "name": "sewer_geyser",
         "position": {
           "orientation": "left",
           "x": 17.5,
@@ -2442,8 +2236,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "sewer_start",
+        "name": "sewer_start",
         "position": {
           "orientation": "front",
           "x": 8.5,
@@ -2452,8 +2245,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "sewer_qr",
+        "name": "sewer_qr",
         "position": {
           "orientation": "right",
           "x": 9.5,
@@ -2464,76 +2256,49 @@
       },
       {
         "name": "secret",
+        "to": "sewer_fork",
         "position": {
           "orientation": "left",
           "x": 34.5,
           "y": 33,
           "z": 35.5
         },
-        "time": 200
+        "time": "src"
       },
       {
-        "name": "warp_back",
-        "to": "nature_hub",
-        "position": {
-          "orientation": "front",
-          "x": 19.5,
-          "y": 43,
-          "z": 20.4375
-        },
-        "time": 690
-      },
-      {
-        "name": "warp_back",
-        "to": "industrial_hub",
-        "position": {
-          "x": 19.5,
-          "y": 43,
-          "z": 20.4375
-        },
-        "time": 690
-      },
-      {
-        "name": "warp_front",
+        "name": "lesser_gate",
         "position": {
           "orientation": "front",
           "x": 19.5,
           "y": 43,
           "z": 22.4375
-        }
+        },
+        "time": "src"
       },
       {
-        "name": "warp_right",
+        "name": "nature_hub",
         "position": {
-          "orientation": "right",
-          "x": 21.5,
-          "y": 43,
-          "z": 20.4375
-        }
-      },
-      {
-        "name": "warp_back",
-        "position": {
-          "orientation": "back",
+          "orientation": "front",
           "x": 19.5,
           "y": 43,
-          "z": 18.4375
-        }
+          "z": 20.4375
+        },
+        "time": 690
       },
       {
-        "name": "warp_left",
+        "name": "industrial_hub",
         "position": {
-          "orientation": "left",
-          "x": 17.5,
+          "x": 19.5,
           "y": 43,
           "z": 20.4375
-        }
+        },
+        "time": 690
       }
     ]
   },
   {
     "name": "sewer_lesser_gate_b",
-    "collectables": [
+    "nodes": [
       {
         "name": "cube",
         "cube": 1,
@@ -2543,12 +2308,9 @@
           "z": 20
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "sewer_pillars",
+        "name": "sewer_pillars",
         "position": {
           "orientation": "back",
           "x": 13.5,
@@ -2557,7 +2319,7 @@
         }
       },
       {
-        "name": "warp_front",
+        "name": "lesser_gate",
         "to": "sewer_hub",
         "position": {
           "x": 15.4375,
@@ -2570,7 +2332,7 @@
   },
   {
     "name": "sewer_pillars",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2611,12 +2373,9 @@
           "z": 31.5
         },
         "time": 884
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "sewer_fork",
+        "name": "sewer_fork",
         "position": {
           "orientation": "right",
           "x": 7.5,
@@ -2626,8 +2385,7 @@
         "cost": "lock"
       },
       {
-        "name": "door",
-        "to": "sewer_lesser_gate_b",
+        "name": "sewer_lesser_gate_b",
         "position": {
           "orientation": "left",
           "x": 29.5,
@@ -2636,8 +2394,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "sewer_geyser",
+        "name": "sewer_geyser",
         "position": {
           "orientation": "right",
           "x": 31.5,
@@ -2649,7 +2406,7 @@
   },
   {
     "name": "sewer_pivot",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2669,12 +2426,9 @@
           "z": 12.5
         },
         "time": 300
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "sewer_hub",
+        "name": "sewer_hub",
         "position": {
           "orientation": "right",
           "x": 21.5,
@@ -2686,7 +2440,7 @@
   },
   {
     "name": "sewer_qr",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2707,12 +2461,9 @@
         },
         "time": 231,
         "cost": "oneof"
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "sewer_hub",
+        "name": "sewer_hub",
         "position": {
           "orientation": "front",
           "x": 14.5,
@@ -2724,7 +2475,7 @@
   },
   {
     "name": "sewer_start",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2734,12 +2485,9 @@
           "z": 37
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "well_2",
+        "name": "well_2",
         "position": {
           "x": 13.5,
           "y": 27,
@@ -2748,8 +2496,7 @@
         "time": 240
       },
       {
-        "name": "door",
-        "to": "sewer_hub",
+        "name": "sewer_hub",
         "position": {
           "orientation": "right",
           "x": 14.5,
@@ -2762,7 +2509,7 @@
   },
   {
     "name": "sewer_to_lava",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2772,12 +2519,9 @@
           "z": 10
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "sewer_hub",
+        "name": "sewer_hub",
         "position": {
           "orientation": "right",
           "x": 13.5,
@@ -2801,7 +2545,7 @@
   },
   {
     "name": "skull",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2831,12 +2575,9 @@
           "z": 21
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "skull_b",
+        "name": "skull_b",
         "position": {
           "orientation": "back",
           "x": 22,
@@ -2845,8 +2586,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "graveyard_gate",
+        "name": "graveyard_gate",
         "position": {
           "orientation": "front",
           "x": 17,
@@ -2859,7 +2599,7 @@
   },
   {
     "name": "skull_b",
-    "collectables": [
+    "nodes": [
       {
         "name": "anti",
         "anti": 1,
@@ -2869,12 +2609,9 @@
           "z": 19
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "skull",
+        "name": "skull",
         "position": {
           "orientation": "right",
           "x": 22.5,
@@ -2883,7 +2620,7 @@
         }
       },
       {
-        "name": "warp_front",
+        "name": "lesser_gate",
         "to": "graveyard_gate",
         "position": {
           "x": 20.4375,
@@ -2896,7 +2633,7 @@
   },
   {
     "name": "spinning_plates",
-    "collectables": [
+    "nodes": [
       {
         "name": "cube",
         "cube": 1,
@@ -2916,12 +2653,9 @@
           "z": 12
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "triple_pivot_cave",
+        "name": "triple_pivot_cave",
         "position": {
           "orientation": "front",
           "x": 12.5,
@@ -2930,7 +2664,7 @@
         }
       },
       {
-        "name": "warp_back",
+        "name": "lesser_gate",
         "to": "industrial_hub",
         "position": {
           "x": 12.5,
@@ -2942,23 +2676,8 @@
     ]
   },
   {
-    "name": "stargate",
-    "collectables": [],
-    "doors": [
-      {
-        "name": "end",
-        "position": {
-          "orientation": "front",
-          "x": 12,
-          "y": 31,
-          "z": 26.5
-        }
-      }
-    ]
-  },
-  {
     "name": "stargate_ruins",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -2978,12 +2697,9 @@
           "z": 11
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "zu_city_ruins",
+        "name": "zu_city_ruins",
         "position": {
           "orientation": "front",
           "x": 16,
@@ -2995,7 +2711,7 @@
   },
   {
     "name": "superspin_cave",
-    "collectables": [
+    "nodes": [
       {
         "name": "cube",
         "cube": 1,
@@ -3005,12 +2721,9 @@
           "z": 6
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "industrial_superspin",
+        "name": "industrial_superspin",
         "position": {
           "orientation": "right",
           "x": 8.5,
@@ -3019,7 +2732,7 @@
         }
       },
       {
-        "name": "warp_back",
+        "name": "lesser_gate",
         "to": "industrial_hub",
         "position": {
           "x": 7.5,
@@ -3032,7 +2745,7 @@
   },
   {
     "name": "throne",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -3053,12 +2766,9 @@
           "z": 32.5
         },
         "time": 1648
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "zu_bridge",
+        "name": "zu_bridge",
         "position": {
           "orientation": "right",
           "x": 39.5,
@@ -3067,8 +2777,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "tree_sky",
+        "name": "tree_sky",
         "position": {
           "orientation": "left",
           "x": 26.5,
@@ -3079,19 +2788,20 @@
       },
       {
         "name": "secret",
+        "to": "observatory",
         "position": {
           "orientation": "left",
           "x": 30.5,
           "y": 17,
           "z": 28.5
         },
-        "time": 200
+        "time": "src"
       }
     ]
   },
   {
     "name": "tree",
-    "collectables": [
+    "nodes": [
       {
         "name": "anti",
         "anti": 1,
@@ -3113,12 +2823,9 @@
         },
         "time": 620,
         "cost": "lock"
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "cabin_interior",
+        "name": "cabin_interior",
         "position": {
           "orientation": "right",
           "x": 23.5,
@@ -3127,8 +2834,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "tree_roots",
+        "name": "tree_roots",
         "position": {
           "orientation": "front",
           "x": 21.5,
@@ -3137,8 +2843,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "tree_sky",
+        "name": "tree_sky",
         "position": {
           "orientation": "left",
           "x": 6.5,
@@ -3150,11 +2855,9 @@
   },
   {
     "name": "tree_roots",
-    "collectables": [],
-    "doors": [
+    "nodes": [
       {
-        "name": "door",
-        "to": "nature_hub",
+        "name": "nature_hub",
         "position": {
           "orientation": "left",
           "x": 11.5,
@@ -3163,8 +2866,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "tree",
+        "name": "tree",
         "position": {
           "orientation": "left",
           "x": 13.5,
@@ -3174,19 +2876,20 @@
       },
       {
         "name": "secret",
+        "to": "graveyard_gate",
         "position": {
           "orientation": "right",
           "x": 15.5,
           "y": 35,
           "z": 14.5
         },
-        "time": 200
+        "time": "src"
       }
     ]
   },
   {
     "name": "tree_sky",
-    "collectables": [
+    "nodes": [
       {
         "name": "anti",
         "anti": 1,
@@ -3196,12 +2899,9 @@
           "z": 19.5
         },
         "time": 296
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "tree",
+        "name": "tree",
         "position": {
           "orientation": "front",
           "x": 14.5,
@@ -3210,8 +2910,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "throne",
+        "name": "throne",
         "position": {
           "orientation": "right",
           "x": 10.5,
@@ -3224,7 +2923,7 @@
   },
   {
     "name": "triple_pivot_cave",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -3244,12 +2943,9 @@
           "z": 30
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "spinning_plates",
+        "name": "spinning_plates",
         "position": {
           "orientation": "right",
           "x": 9.5,
@@ -3258,8 +2954,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "rails",
+        "name": "rails",
         "position": {
           "orientation": "back",
           "x": 15.5,
@@ -3271,7 +2966,7 @@
   },
   {
     "name": "two_walls",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -3311,12 +3006,9 @@
           "z": 31.5
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "wall_hole",
+        "name": "wall_hole",
         "position": {
           "orientation": "right",
           "x": 30.5,
@@ -3326,8 +3018,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "fractal",
+        "name": "fractal",
         "position": {
           "orientation": "back",
           "x": 36,
@@ -3347,7 +3038,7 @@
         "time": 200
       },
       {
-        "name": "warp_left",
+        "name": "lesser_gate",
         "to": "nature_hub",
         "position": {
           "x": 22,
@@ -3360,7 +3051,7 @@
   },
   {
     "name": "villageville_3d",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -3478,9 +3169,7 @@
           "z": 37.40625
         },
         "time": 380
-      }
-    ],
-    "doors": [
+      },
       {
         "name": "start",
         "position": {
@@ -3488,11 +3177,11 @@
           "x": 30.5,
           "y": 22,
           "z": 37.40625
-        }
+        },
+        "time": "start"
       },
       {
-        "name": "door",
-        "to": "big_tower",
+        "name": "big_tower",
         "position": {
           "orientation": "front",
           "x": 34,
@@ -3504,7 +3193,7 @@
   },
   {
     "name": "visitor",
-    "collectables": [
+    "nodes": [
       {
         "name": "cube",
         "cube": 1,
@@ -3525,12 +3214,9 @@
           "z": 33.5
         },
         "time": 532
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "observatory",
+        "name": "observatory",
         "position": {
           "orientation": "front",
           "x": 25.5,
@@ -3552,7 +3238,7 @@
         "cost": "secret"
       },
       {
-        "name": "warp_right",
+        "name": "lesser_gate",
         "to": "zu_city_ruins",
         "position": {
           "x": 26,
@@ -3565,7 +3251,7 @@
   },
   {
     "name": "wall_hole",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -3595,12 +3281,9 @@
           "z": 26.5
         },
         "time": 300
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "ancient_walls",
+        "name": "ancient_walls",
         "position": {
           "orientation": "right",
           "x": 14.5,
@@ -3610,8 +3293,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "two_walls",
+        "name": "two_walls",
         "position": {
           "orientation": "left",
           "x": 12.5,
@@ -3624,7 +3306,7 @@
   },
   {
     "name": "wall_village",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -3667,12 +3349,9 @@
           "z": 13.5
         },
         "time": 428
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "memory_core",
+        "name": "memory_core",
         "position": {
           "orientation": "left",
           "x": 20.5,
@@ -3684,7 +3363,7 @@
   },
   {
     "name": "waterfall",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -3715,12 +3394,9 @@
           "z": 13.5
         },
         "time": 666
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "nature_hub",
+        "name": "nature_hub",
         "position": {
           "orientation": "back",
           "x": 5.5,
@@ -3730,8 +3406,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "mine_a",
+        "name": "mine_a",
         "position": {
           "orientation": "front",
           "x": 30,
@@ -3740,8 +3415,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "cmy",
+        "name": "cmy",
         "position": {
           "orientation": "left",
           "x": 15.5,
@@ -3750,8 +3424,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "zu_code_loop",
+        "name": "zu_code_loop",
         "position": {
           "orientation": "right",
           "x": 28.5,
@@ -3763,7 +3436,7 @@
   },
   {
     "name": "water_tower",
-    "collectables": [
+    "nodes": [
       {
         "name": "watertower_secret",
         "anti": 1,
@@ -3774,12 +3447,9 @@
           "z": 25.5
         },
         "time": 707
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "lighthouse",
+        "name": "lighthouse",
         "position": {
           "orientation": "back",
           "x": 20.5,
@@ -3789,8 +3459,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "pivot_watertower",
+        "name": "pivot_watertower",
         "position": {
           "orientation": "front",
           "x": 12.5,
@@ -3802,7 +3471,7 @@
   },
   {
     "name": "weightswitch_temple",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -3822,12 +3491,9 @@
           "z": 34
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "zu_switch",
+        "name": "zu_switch",
         "position": {
           "orientation": "front",
           "x": 20.5,
@@ -3836,8 +3502,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "arch",
+        "name": "arch",
         "position": {
           "orientation": "right",
           "x": 23.5,
@@ -3850,11 +3515,9 @@
   },
   {
     "name": "well_2",
-    "collectables": [],
-    "doors": [
+    "nodes": [
       {
-        "name": "door",
-        "to": "rails",
+        "name": "rails",
         "position": {
           "orientation": "front",
           "x": 13.5,
@@ -3864,8 +3527,7 @@
         "time": 540
       },
       {
-        "name": "door",
-        "to": "sewer_start",
+        "name": "sewer_start",
         "position": {
           "x": 14.5,
           "y": 42,
@@ -3888,7 +3550,7 @@
   },
   {
     "name": "windmill_cave",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -3908,12 +3570,9 @@
           "z": 10
         },
         "time": 300
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "windmill_int",
+        "name": "windmill_int",
         "position": {
           "orientation": "right",
           "x": 18.5,
@@ -3925,11 +3584,9 @@
   },
   {
     "name": "windmill_int",
-    "collectables": [],
-    "doors": [
+    "nodes": [
       {
-        "name": "door",
-        "to": "pivot_one",
+        "name": "pivot_one",
         "position": {
           "orientation": "right",
           "x": 3.5,
@@ -3938,8 +3595,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "windmill_cave",
+        "name": "windmill_cave",
         "position": {
           "orientation": "front",
           "x": 8,
@@ -3951,7 +3607,7 @@
   },
   {
     "name": "zu_bridge",
-    "collectables": [
+    "nodes": [
       {
         "name": "anti",
         "anti": 1,
@@ -3981,12 +3637,9 @@
           "z": 41
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "zu_city_ruins",
+        "name": "zu_city_ruins",
         "position": {
           "orientation": "back",
           "x": 39.5,
@@ -3996,8 +3649,7 @@
         "time": 1590
       },
       {
-        "name": "door",
-        "to": "throne",
+        "name": "throne",
         "position": {
           "orientation": "back",
           "x": 26.5,
@@ -4009,7 +3661,7 @@
   },
   {
     "name": "zu_city",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -4084,22 +3736,19 @@
           "z": 44.5
         },
         "time": 494
-      }
-    ],
-    "doors": [
+      },
       {
         "name": "end",
-        "to": "stargate",
         "position": {
           "orientation": "right",
           "x": 59.5,
           "y": 36,
           "z": 37
-        }
+        },
+        "time": "end"
       },
       {
-        "name": "door",
-        "to": "memory_core",
+        "name": "memory_core",
         "position": {
           "orientation": "left",
           "x": 33.5,
@@ -4108,8 +3757,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "zu_house_empty",
+        "name": "zu_house_empty",
         "position": {
           "orientation": "back",
           "x": 41.5,
@@ -4121,7 +3769,7 @@
   },
   {
     "name": "zu_city_ruins",
-    "collectables": [
+    "nodes": [
       {
         "name": "oldschool_ruins",
         "bit": 1,
@@ -4143,12 +3791,9 @@
           "z": 43.5
         },
         "time": 636
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "stargate_ruins",
+        "name": "stargate_ruins",
         "position": {
           "orientation": "right",
           "x": 57.5,
@@ -4157,8 +3802,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "observatory",
+        "name": "observatory",
         "position": {
           "orientation": "front",
           "x": 53.5,
@@ -4168,8 +3812,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "clock",
+        "name": "clock",
         "position": {
           "orientation": "back",
           "x": 11.5,
@@ -4179,8 +3822,7 @@
         "time": 700
       },
       {
-        "name": "door",
-        "to": "zu_bridge",
+        "name": "zu_bridge",
         "position": {
           "orientation": "left",
           "x": 31.5,
@@ -4189,8 +3831,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "zu_throne_ruins",
+        "name": "zu_throne_ruins",
         "position": {
           "orientation": "back",
           "x": 39.5,
@@ -4199,8 +3840,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "purple_lodge_ruin",
+        "name": "purple_lodge_ruin",
         "position": {
           "orientation": "right",
           "x": 51.5,
@@ -4210,17 +3850,27 @@
       },
       {
         "name": "secret",
+        "to": "zu_library",
         "position": {
           "orientation": "front",
           "x": 44.5,
           "y": 36,
           "z": 49
         },
-        "time": 200
+        "time": "src"
       },
       {
-        "name": "warp_front",
-        "to": "nature_hub",
+        "name": "lesser_gate",
+        "position": {
+          "orientation": "right",
+          "x": 44,
+          "y": 56,
+          "z": 36
+        },
+        "time": "src"
+      },
+      {
+        "name": "nature_hub",
         "position": {
           "orientation": "front",
           "x": 42,
@@ -4228,48 +3878,12 @@
           "z": 36
         },
         "time": 690
-      },
-      {
-        "name": "warp_front",
-        "position": {
-          "orientation": "front",
-          "x": 42,
-          "y": 56,
-          "z": 38
-        }
-      },
-      {
-        "name": "warp_right",
-        "position": {
-          "orientation": "right",
-          "x": 44,
-          "y": 56,
-          "z": 36
-        }
-      },
-      {
-        "name": "warp_back",
-        "position": {
-          "orientation": "back",
-          "x": 42,
-          "y": 56,
-          "z": 34
-        }
-      },
-      {
-        "name": "warp_left",
-        "position": {
-          "orientation": "left",
-          "x": 40,
-          "y": 56,
-          "z": 36
-        }
       }
     ]
   },
   {
     "name": "zu_code_loop",
-    "collectables": [
+    "nodes": [
       {
         "name": "cube_anti",
         "anti": 1,
@@ -4300,12 +3914,9 @@
           "z": 4.5
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "waterfall",
+        "name": "waterfall",
         "position": {
           "orientation": "back",
           "x": 4.5,
@@ -4314,7 +3925,7 @@
         }
       },
       {
-        "name": "warp_back",
+        "name": "lesser_gate",
         "to": "nature_hub",
         "position": {
           "x": 5,
@@ -4327,7 +3938,7 @@
   },
   {
     "name": "zu_house_empty",
-    "collectables": [
+    "nodes": [
       {
         "name": "anti",
         "anti": 1,
@@ -4348,12 +3959,9 @@
           "z": 8
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "zu_city",
+        "name": "zu_city",
         "position": {
           "orientation": "left",
           "x": 12.5,
@@ -4365,7 +3973,7 @@
   },
   {
     "name": "zu_library",
-    "collectables": [
+    "nodes": [
       {
         "name": "bit_1",
         "bit": 1,
@@ -4386,12 +3994,9 @@
           "z": 25
         },
         "time": 852
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "clock",
+        "name": "clock",
         "position": {
           "orientation": "right",
           "x": 33.5,
@@ -4415,11 +4020,9 @@
   },
   {
     "name": "zu_switch",
-    "collectables": [],
-    "doors": [
+    "nodes": [
       {
-        "name": "door",
-        "to": "weightswitch_temple",
+        "name": "weightswitch_temple",
         "position": {
           "orientation": "back",
           "x": 17.5,
@@ -4428,8 +4031,7 @@
         }
       },
       {
-        "name": "door",
-        "to": "zu_switch_b",
+        "name": "zu_switch_b",
         "position": {
           "orientation": "front",
           "x": 17.5,
@@ -4441,7 +4043,7 @@
   },
   {
     "name": "zu_switch_b",
-    "collectables": [
+    "nodes": [
       {
         "name": "cube",
         "cube": 1,
@@ -4451,12 +4053,9 @@
           "z": 20
         },
         "time": 56
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "zu_switch",
+        "name": "zu_switch",
         "position": {
           "orientation": "front",
           "x": 17.5,
@@ -4465,7 +4064,7 @@
         }
       },
       {
-        "name": "warp_back",
+        "name": "lesser_gate",
         "to": "nature_hub",
         "position": {
           "x": 17.5,
@@ -4478,7 +4077,7 @@
   },
   {
     "name": "zu_throne_ruins",
-    "collectables": [
+    "nodes": [
       {
         "name": "anti",
         "anti": 1,
@@ -4499,12 +4098,9 @@
           "z": 8
         },
         "time": 12
-      }
-    ],
-    "doors": [
+      },
       {
-        "name": "door",
-        "to": "zu_city_ruins",
+        "name": "zu_city_ruins",
         "position": {
           "orientation": "left",
           "x": 12.5,
